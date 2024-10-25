@@ -1,0 +1,8 @@
+com\prodify\cqrs\PaymentService\command\api\kafka\PaymentKafkaConsumer.class
+com\prodify\cqrs\PaymentService\command\api\data\PaymentRepository.class
+com\prodify\cqrs\PaymentService\command\api\data\Payment.class
+com\prodify\cqrs\PaymentService\command\api\config\KafkaConsumerConfig.class
+com\prodify\cqrs\PaymentService\command\api\events\PaymentsEventHandler.class
+com\prodify\cqrs\PaymentService\command\api\aggregate\PaymentAggregate.class
+com\prodify\cqrs\PaymentService\command\api\data\Payment$PaymentBuilder.class
+com\prodify\cqrs\PaymentService\PaymentServiceApplication.class

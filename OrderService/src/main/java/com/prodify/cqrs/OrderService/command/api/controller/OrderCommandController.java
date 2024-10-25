@@ -1,8 +1,10 @@
 package com.prodify.cqrs.OrderService.command.api.controller;
 
 import com.prodify.cqrs.OrderService.command.api.command.CreateOrderCommand;
+import com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +18,12 @@ public class OrderCommandController {
 
     private CommandGateway commandGateway;
 
-    public OrderCommandController(CommandGateway commandGateway) {
+    private final OrderKafkaProducer orderKafkaProducer;
+
+    @Autowired
+    public OrderCommandController(CommandGateway commandGateway, OrderKafkaProducer orderKafkaProducer) {
         this.commandGateway = commandGateway;
+        this.orderKafkaProducer = orderKafkaProducer;
     }
 
     @PostMapping
@@ -35,7 +41,9 @@ public class OrderCommandController {
                 .build();
 
         commandGateway.sendAndWait(createOrderCommand);
+        String orderData = orderRestModel.toString();  // Customize as per your model
+        orderKafkaProducer.sendOrderEvent("order-events", orderData);
 
-        return "Order Created";
+        return "Order Created with ID: " + orderId;
     }
 }

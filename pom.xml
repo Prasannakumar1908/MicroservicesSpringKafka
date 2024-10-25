@@ -26,9 +26,13 @@
         <module>CommonService</module>
         <module>OrderService</module>
         <module>PaymentService</module>
-        <module>ProductService</module>
         <module>ShipmentService</module>
         <module>UserService</module>
+        <module>ProductService</module>
+        <module>AuthService</module>
+        <module>GatewayService</module>
+<!--        <module>MemberService</module>-->
+<!--        <module>ActivityService</module>-->
     </modules>
     <dependencies>
         <dependency>
@@ -95,6 +99,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
         <dependency>

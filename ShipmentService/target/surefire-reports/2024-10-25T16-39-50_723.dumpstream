@@ -1,0 +1,5 @@
+# Created at 2024-10-25T16:40:40.955
+Boot Manifest-JAR contains absolute paths in classpath 'D:\prodify work\work\spring-boot-axon-cqrs-es\ShipmentService\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

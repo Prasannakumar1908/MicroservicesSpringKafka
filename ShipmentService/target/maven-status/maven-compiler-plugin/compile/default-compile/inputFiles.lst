@@ -1,0 +1,5 @@
+D:\prodify work\work\spring-boot-axon-cqrs-es\ShipmentService\src\main\java\com\prodify\cqrs\ShipmentService\command\api\data\Shipment.java
+D:\prodify work\work\spring-boot-axon-cqrs-es\ShipmentService\src\main\java\com\prodify\cqrs\ShipmentService\command\api\events\ShipmentsEventHandler.java
+D:\prodify work\work\spring-boot-axon-cqrs-es\ShipmentService\src\main\java\com\prodify\cqrs\ShipmentService\command\api\aggregate\ShipmentAggregate.java
+D:\prodify work\work\spring-boot-axon-cqrs-es\ShipmentService\src\main\java\com\prodify\cqrs\ShipmentService\command\api\data\ShipmentRepository.java
+D:\prodify work\work\spring-boot-axon-cqrs-es\ShipmentService\src\main\java\com\prodify\cqrs\ShipmentService\ShipmentServiceApplication.java
