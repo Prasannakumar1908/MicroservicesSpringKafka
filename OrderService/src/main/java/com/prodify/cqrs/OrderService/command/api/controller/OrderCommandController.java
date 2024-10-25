@@ -20,8 +20,16 @@ public class OrderCommandController {
 
     private final OrderKafkaProducer orderKafkaProducer;
 
+<<<<<<< HEAD
     @Autowired
     public OrderCommandController(CommandGateway commandGateway, OrderKafkaProducer orderKafkaProducer) {
+=======
+    public OrderCommandController(OrderKafkaProducer orderKafkaProducer) {
+        this.orderKafkaProducer = orderKafkaProducer;
+    }
+
+    public OrderCommandController(CommandGateway commandGateway) {
+>>>>>>> 0c4379705478b57f8ce5413f7cd34e6260405651
         this.commandGateway = commandGateway;
         this.orderKafkaProducer = orderKafkaProducer;
     }
