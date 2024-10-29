@@ -5,10 +5,7 @@ import com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -20,18 +17,16 @@ public class OrderCommandController {
 
     private final OrderKafkaProducer orderKafkaProducer;
 
-<<<<<<< HEAD
+
     @Autowired
     public OrderCommandController(CommandGateway commandGateway, OrderKafkaProducer orderKafkaProducer) {
-=======
-    public OrderCommandController(OrderKafkaProducer orderKafkaProducer) {
+        this.commandGateway = commandGateway;
         this.orderKafkaProducer = orderKafkaProducer;
     }
 
-    public OrderCommandController(CommandGateway commandGateway) {
->>>>>>> 0c4379705478b57f8ce5413f7cd34e6260405651
-        this.commandGateway = commandGateway;
-        this.orderKafkaProducer = orderKafkaProducer;
+    @GetMapping("/message")
+    public String getMessage(){
+        return "Reached orderservice";
     }
 
     @PostMapping

@@ -14,20 +14,26 @@
         <module name="CommonService" />
         <module name="OrderService" />
         <module name="PaymentService" />
-        <module name="GatewayService" />
+        <module name="gatewayservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AuthService1" target="17" />
+      <module name="GatewayService1" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AuthService" options="-parameters" />
+      <module name="AuthService1" options="-parameters" />
       <module name="CommonService" options="-parameters" />
-      <module name="GatewayService" options="-parameters" />
+      <module name="GatewayService1" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="PaymentService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="ShipmentService" options="-parameters" />
       <module name="UserService" options="-parameters" />
+      <module name="gatewayservice" options="-parameters" />
     </option>
   </component>
 </project>

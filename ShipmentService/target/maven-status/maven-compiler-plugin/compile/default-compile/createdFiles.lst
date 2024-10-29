@@ -1,5 +1,0 @@
-com\prodify\cqrs\ShipmentService\ShipmentServiceApplication.class
-com\prodify\cqrs\ShipmentService\command\api\aggregate\ShipmentAggregate.class
-com\prodify\cqrs\ShipmentService\command\api\data\ShipmentRepository.class
-com\prodify\cqrs\ShipmentService\command\api\events\ShipmentsEventHandler.class
-com\prodify\cqrs\ShipmentService\command\api\data\Shipment.class

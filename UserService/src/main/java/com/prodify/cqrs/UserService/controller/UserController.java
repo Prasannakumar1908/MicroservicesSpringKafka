@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-    private transient QueryGateway queryGateway;
+    private final QueryGateway queryGateway;
 
     public UserController(QueryGateway queryGateway) {
         this.queryGateway = queryGateway;

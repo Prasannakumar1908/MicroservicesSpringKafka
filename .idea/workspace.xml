@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/controller/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/filter/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/util/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/AuthServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/AuthServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/CommonService-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CancelOrderCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CancelOrderCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CancelPaymentCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CancelPaymentCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CompleteOrderCommand$CompleteOrderCommandBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CompleteOrderCommand$CompleteOrderCommandBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CompleteOrderCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/CompleteOrderCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ShipOrderCommand$ShipOrderCommandBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ShipOrderCommand$ShipOrderCommandBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ShipOrderCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ShipOrderCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ValidatePaymentCommand$ValidatePaymentCommandBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ValidatePaymentCommand$ValidatePaymentCommandBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ValidatePaymentCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/commands/ValidatePaymentCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderCancelledEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderCancelledEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderCompletedEvent$OrderCompletedEventBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderCompletedEvent$OrderCompletedEventBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderCompletedEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderCompletedEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderShippedEvent$OrderShippedEventBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderShippedEvent$OrderShippedEventBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderShippedEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/OrderShippedEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/PaymentCancelledEvent$PaymentCancelledEventBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/PaymentCancelledEvent$PaymentCancelledEventBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/PaymentCancelledEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/PaymentCancelledEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/PaymentProcessedEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/events/PaymentProcessedEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/CardDetails$CardDetailsBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/CardDetails$CardDetailsBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/CardDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/CardDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/queries/GetUserPaymentDetailsQuery.class" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/target/classes/com/prodify/cqrs/CommonService/queries/GetUserPaymentDetailsQuery.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/surefire-reports/2024-10-25T18-58-49_068.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/target/test-classes/com/prodify/cqrs/CommonService/CommonServiceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/GatewayServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/GatewayServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/config/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/config/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/java/com/prodify/cqrs/gatewayservice/controller/AuthenticationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/test/java/com/prodify/cqrs/gatewayservice/GatewayServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/test/java/com/prodify/cqrs/gatewayservice/GatewayServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/OrderService-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/OrderService-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/2024-10-25T18-58-49_068.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.OrderServiceApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.OrderServiceApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/OrderServiceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/PaymentServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/PaymentServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/aggregate/PaymentAggregate.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/aggregate/PaymentAggregate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/config/KafkaConsumerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/config/KafkaConsumerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/data/Payment$PaymentBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/data/Payment$PaymentBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/data/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/data/Payment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/data/PaymentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/data/PaymentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/events/PaymentsEventHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/events/PaymentsEventHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/kafka/PaymentKafkaConsumer.class" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/target/classes/com/prodify/cqrs/PaymentService/command/api/kafka/PaymentKafkaConsumer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/surefire-reports/2024-10-25T18-58-49_068.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/surefire-reports/TEST-com.prodify.cqrs.PaymentService.PaymentServiceApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/surefire-reports/com.prodify.cqrs.PaymentService.PaymentServiceApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PaymentService/target/test-classes/com/prodify/cqrs/PaymentService/PaymentServiceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProductService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ProductService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProductService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ProductService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/ShipmentServiceApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/ShipmentServiceApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/aggregate/ShipmentAggregate.class" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/aggregate/ShipmentAggregate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/data/Shipment.class" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/data/Shipment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/data/ShipmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/data/ShipmentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/events/ShipmentsEventHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/ShipmentService/target/classes/com/prodify/cqrs/ShipmentService/command/api/events/ShipmentsEventHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/surefire-reports/2024-10-25T16-39-50_723.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/surefire-reports/TEST-com.prodify.cqrs.ShipmentService.ShipmentServiceApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/surefire-reports/com.prodify.cqrs.ShipmentService.ShipmentServiceApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShipmentService/target/test-classes/com/prodify/cqrs/ShipmentService/ShipmentServiceApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenRunner">
+    <option name="jreName" value="corretto-22" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2o63r8mveQerofzMCbbuom0gEHw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven. [clean,compile,install].executor": "Run",
+    "Maven.AuthService1 [clean,compile,install].executor": "Run",
+    "Maven.GatewayService1.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.GatewayserviceApplication.executor": "Run",
+    "Spring Boot.OrderServiceApplication.executor": "Run",
+    "Spring Boot.PaymentServiceApplication.executor": "Run",
+    "Spring Boot.ProductServiceApplication.executor": "Run",
+    "Spring Boot.ShipmentServiceApplication.executor": "Run",
+    "Spring Boot.UserServiceApplication.executor": "Run",
+    "git-widget-placeholder": "spring-3",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-22",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/prodify work/work/spring-boot-axon-cqrs-es/AuthService1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="ShConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Maven. [clean,compile,install]">
+    <configuration name=" [clean,compile,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="corretto-22" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="compile" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/gatewayservice" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="AuthService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.authservice.AuthServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="gatewayservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.gatewayservice.GatewayserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="OrderService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.OrderService.OrderServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="PaymentService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.PaymentService.PaymentServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ProductService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.ProductService.ProductServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShipmentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ShipmentService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.ShipmentService.ShipmentServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="UserService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.prodify.cqrs.UserService.UserServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Maven. [clean,compile,install]" />
+      <item itemvalue="Spring Boot.GatewayserviceApplication" />
+      <item itemvalue="Spring Boot.AuthServiceApplication" />
+      <item itemvalue="Spring Boot.OrderServiceApplication" />
+      <item itemvalue="Spring Boot.PaymentServiceApplication" />
+      <item itemvalue="Spring Boot.ProductServiceApplication" />
+      <item itemvalue="Spring Boot.ShipmentServiceApplication" />
+      <item itemvalue="Spring Boot.UserServiceApplication" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="" />
+      <created>1730176395754</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730176395754</updated>
+      <workItem from="1730176396514" duration="917000" />
+      <workItem from="1730177336804" duration="21532000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

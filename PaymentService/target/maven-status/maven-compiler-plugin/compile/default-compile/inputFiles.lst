@@ -1,7 +1,0 @@
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\command\api\config\KafkaConsumerConfig.java
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\command\api\events\PaymentsEventHandler.java
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\command\api\aggregate\PaymentAggregate.java
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\command\api\data\Payment.java
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\PaymentServiceApplication.java
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\command\api\kafka\PaymentKafkaConsumer.java
-D:\prodify work\work\spring-boot-axon-cqrs-es\PaymentService\src\main\java\com\prodify\cqrs\PaymentService\command\api\data\PaymentRepository.java
