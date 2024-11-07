@@ -3,6 +3,8 @@ package com.prodify.cqrs.OrderService.command.api.controller;
 import com.prodify.cqrs.OrderService.command.api.command.CreateOrderCommand;
 import com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
+@Tag(name = "Order Command Controller", description = "Operations related to Order")
+
 public class OrderCommandController {
 
     private CommandGateway commandGateway;
@@ -25,11 +29,15 @@ public class OrderCommandController {
     }
 
     @GetMapping("/message")
+    @Operation(summary = "Test Order Service", description = "Returns a test message from Order Service")
+
     public String getMessage(){
         return "Reached orderservice";
     }
 
-    @PostMapping
+    @PostMapping("/order")
+    @Operation(summary = "Create an Order", description = "Creates a new order with the provided details")
+
     public String createOrder(@RequestBody OrderRestModel orderRestModel) {
 
         String orderId = UUID.randomUUID().toString();

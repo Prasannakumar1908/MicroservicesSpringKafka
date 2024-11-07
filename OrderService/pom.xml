@@ -30,11 +30,19 @@
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>com.prodify.cqrs</groupId>
 			<artifactId>CommonService</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
@@ -50,6 +58,12 @@
 			<artifactId>axon-spring-boot-starter</artifactId>
 			<version>4.9.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-server-connector</artifactId>
+			<version>4.9.3</version> <!-- Use the appropriate Axon version -->
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
