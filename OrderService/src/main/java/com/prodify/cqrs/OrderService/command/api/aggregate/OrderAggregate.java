@@ -31,7 +31,7 @@ public class OrderAggregate {
     public OrderAggregate(CreateOrderCommand createOrderCommand) {
         //Validate The Command
         OrderCreatedEvent orderCreatedEvent
-                = new OrderCreatedEvent();
+                = new OrderCreatedEvent(createOrderCommand.getOrderId(), createOrderCommand.getProductId(), createOrderCommand.getUserId(),createOrderCommand.getAddressId(), createOrderCommand.getQuantity(), createOrderCommand.getOrderStatus());
         BeanUtils.copyProperties(createOrderCommand,
                 orderCreatedEvent);
         AggregateLifecycle.apply(orderCreatedEvent);

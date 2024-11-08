@@ -43,15 +43,17 @@ public class OrderProcessingSaga {
         User user = null;
 
         try {
-            user = queryGateway.query(
-                    getUserPaymentDetailsQuery,
-                    ResponseTypes.instanceOf(User.class)
-            ).join();
-
+            user = queryGateway.query(getUserPaymentDetailsQuery, ResponseTypes.instanceOf(User.class)).join();
         } catch (Exception e) {
-            log.error(e.getMessage());
-            //Start the Compensating transaction
+            log.error("Error retrieving user payment details: {}", e.getMessage());
             cancelOrderCommand(event.getOrderId());
+            return;  // Exit if user is null
+        }
+
+        if (user == null || user.getCardDetails() == null) {
+            log.error("User or CardDetails is null for userId: {}", event.getUserId());
+            cancelOrderCommand(event.getOrderId());
+            return;
         }
 
         ValidatePaymentCommand validatePaymentCommand
