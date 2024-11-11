@@ -34,8 +34,8 @@ public class OrderProcessingSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
     private void handle(OrderCreatedEvent event) {
-        log.info("OrderCreatedEvent in Saga for Order Id : {}",
-                event.getOrderId());
+        log.info("Starting saga for OrderCreatedEvent with Order ID: {}", event.getOrderId());
+
 
         GetUserPaymentDetailsQuery getUserPaymentDetailsQuery
                 = new GetUserPaymentDetailsQuery(event.getUserId());
@@ -68,6 +68,7 @@ public class OrderProcessingSaga {
     }
 
     private void cancelOrderCommand(String orderId) {
+        log.info("Sending CancelOrderCommand for Order ID: {}", orderId);
         CancelOrderCommand cancelOrderCommand
                 = new CancelOrderCommand(orderId);
         commandGateway.send(cancelOrderCommand);
@@ -97,6 +98,7 @@ public class OrderProcessingSaga {
     }
 
     private void cancelPaymentCommand(PaymentProcessedEvent event) {
+        log.info("Initializing CancelPaymentCommand for Payment ID: {} and Order ID:{}", event.getPaymentId(), event.getOrderId());
         CancelPaymentCommand cancelPaymentCommand
                 = new CancelPaymentCommand(
                 event.getPaymentId(), event.getOrderId()
@@ -108,7 +110,7 @@ public class OrderProcessingSaga {
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderShippedEvent event) {
 
-        log.info("OrderShippedEvent in Saga for Order Id : {}",
+        log.info("Processing OrderShippedEvent for Order Id : {}",
                 event.getOrderId());
 
         CompleteOrderCommand completeOrderCommand
@@ -123,20 +125,20 @@ public class OrderProcessingSaga {
     @SagaEventHandler(associationProperty = "orderId")
     @EndSaga
     public void handle(OrderCompletedEvent event) {
-        log.info("OrderCompletedEvent in Saga for Order Id : {}",
+        log.info("OrderCompletedEvent received for Order Id : {}",
                 event.getOrderId());
     }
 
     @SagaEventHandler(associationProperty = "orderId")
     @EndSaga
     public void handle(OrderCancelledEvent event) {
-        log.info("OrderCancelledEvent in Saga for Order Id : {}",
+        log.info("OrderCancelledEvent received for Order Id : {}",
                 event.getOrderId());
     }
 
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(PaymentCancelledEvent event) {
-        log.info("PaymentCancelledEvent in Saga for Order Id : {}",
+        log.info("PaymentCancelledEvent received for Order Id : {}",
                 event.getOrderId());
         cancelOrderCommand(event.getOrderId());
     }

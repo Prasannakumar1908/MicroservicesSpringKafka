@@ -5,6 +5,7 @@ import com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/orders")
 @Tag(name = "Order Command Controller", description = "Operations related to Order")
-
+@Slf4j
 public class OrderCommandController {
 
     private CommandGateway commandGateway;
@@ -32,6 +33,7 @@ public class OrderCommandController {
     @Operation(summary = "Test Order Service", description = "Returns a test message from Order Service")
 
     public String getMessage(){
+        log.info("Recieved request for test message");
         return "Reached orderservice";
     }
 
@@ -39,6 +41,7 @@ public class OrderCommandController {
     @Operation(summary = "Create an Order", description = "Creates a new order with the provided details")
 
     public String createOrder(@RequestBody OrderRestModel orderRestModel) {
+        log.info("Received CreateOrder request with details: {}", orderRestModel);
 
         String orderId = UUID.randomUUID().toString();
 
@@ -52,6 +55,7 @@ public class OrderCommandController {
                 .build();
 
         commandGateway.sendAndWait(createOrderCommand);
+        log.info("Sent CreateOrderCommand for Order ID: {}", orderId);
         String orderData = orderRestModel.toString();  // Customize as per your model
         orderKafkaProducer.sendOrderEvent("order-events", orderData);
 

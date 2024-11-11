@@ -5,20 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/config/ApiGatewayConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/ServiceName.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/UriBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/commands/CompleteOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/commands/CompleteOrderCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/CardDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/CardDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GatewayService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/GatewayService/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/OrderServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/OrderServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/UserServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/UserServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/GatewayConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +42,12 @@
     &quot;assignee&quot;: &quot;Prasannakumar1908&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Prasannakumar1908/MicroservicesSpringKafka.git&quot;,
-    &quot;accountId&quot;: &quot;d69f1248-dabd-46bb-98d8-f4a9b0007cb0&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:Prasannakumar1908/MicroservicesSpringKafka.git",
+    "accountId": "d69f1248-dabd-46bb-98d8-f4a9b0007cb0"
   }
-}</component>
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -65,62 +66,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.OrderAggregateTest.executor": "Run",
-    "JUnit.OrderEventsHandlerTest.executor": "Run",
-    "JUnit.OrderKafkaProducerTest.executor": "Run",
-    "JUnit.OrderProcessingSagaTest.executor": "Run",
-    "JUnit.OrderProcessingSagaTest.testHandleOrderCompletedEvent.executor": "Run",
-    "JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent.executor": "Run",
-    "JUnit.OrderServiceApplicationTests.executor": "Run",
-    "Maven. [clean,compile,install].executor": "Run",
-    "Maven.AuthService1 [clean,compile,install].executor": "Run",
-    "Maven.GatewayService1.executor": "Run",
-    "Maven.apigateway [clean,compile,install].executor": "Run",
-    "Maven.gatewayservice [clean,compile,install].executor": "Run",
-    "Maven.spring-boot-axon-cqrs-es [clean,compile...].executor": "Run",
-    "Maven.spring-boot-axon-cqrs-es.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ApigatewayApplication.executor": "Run",
-    "Spring Boot.AuthServiceApplication.executor": "Run",
-    "Spring Boot.DiscoveryserviceApplication.executor": "Run",
-    "Spring Boot.GatewayserviceApplication.executor": "Run",
-    "Spring Boot.OrderServiceApplication.executor": "Run",
-    "Spring Boot.PaymentServiceApplication.executor": "Run",
-    "Spring Boot.ProductServiceApplication.executor": "Run",
-    "Spring Boot.ShipmentServiceApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "git-widget-placeholder": "spring-3",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "corretto-22",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/UserService",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.OrderAggregateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderEventsHandlerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderKafkaProducerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderProcessingSagaTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderProcessingSagaTest.testHandleOrderCompletedEvent.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OrderServiceApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [clean,compile,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.AuthService1 [clean,compile,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.GatewayService1.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.apigateway [clean,compile,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.gatewayservice [clean,compile,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-axon-cqrs-es [clean,compile...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-axon-cqrs-es.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApigatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryserviceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayserviceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ProductServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ShipmentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;spring-3&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-22&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/UserService&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "GitIgnore",
-      "PLAIN_TEXT",
-      "GitExclude"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;GitIgnore&quot;,
+      &quot;PLAIN_TEXT&quot;,
+      &quot;GitExclude&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -144,7 +147,37 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OrderProcessingSagaTest">
+  <component name="RunManager" selected="Maven.apigateway [clean,compile,install]">
+    <configuration name="OrderAggregateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OrderService" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.aggregate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.aggregate" />
+      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderEventsHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OrderService" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.events.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.events" />
+      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OrderKafkaProducerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OrderService" />
       <extension name="coverage">
@@ -171,38 +204,6 @@
       <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.saga" />
       <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderProcessingSagaTest.testHandleOrderCompletedEvent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="OrderService" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.saga.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.saga" />
-      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest" />
-      <option name="METHOD_NAME" value="testHandleOrderCompletedEvent" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderProcessingSagaTest.testHandleOrderCreatedEvent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="OrderService" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.saga.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.saga" />
-      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest" />
-      <option name="METHOD_NAME" value="testHandleOrderCreatedEvent" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -429,10 +430,10 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.OrderAggregateTest" />
+      <item itemvalue="JUnit.OrderEventsHandlerTest" />
       <item itemvalue="JUnit.OrderKafkaProducerTest" />
       <item itemvalue="JUnit.OrderProcessingSagaTest" />
-      <item itemvalue="JUnit.OrderProcessingSagaTest.testHandleOrderCompletedEvent" />
-      <item itemvalue="JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent" />
       <item itemvalue="JUnit.OrderServiceApplicationTests" />
       <item itemvalue="Maven.gatewayservice [clean,compile,install]" />
       <item itemvalue="Maven.spring-boot-axon-cqrs-es [clean,compile...]" />
@@ -450,10 +451,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.OrderProcessingSagaTest" />
-        <item itemvalue="JUnit.OrderProcessingSagaTest.testHandleOrderCompletedEvent" />
-        <item itemvalue="JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent" />
-        <item itemvalue="JUnit.OrderServiceApplicationTests" />
         <item itemvalue="JUnit.OrderKafkaProducerTest" />
+        <item itemvalue="JUnit.OrderEventsHandlerTest" />
+        <item itemvalue="JUnit.OrderAggregateTest" />
+        <item itemvalue="JUnit.OrderServiceApplicationTests" />
       </list>
     </recent_temporary>
   </component>
@@ -480,7 +481,8 @@
       <workItem from="1730618073965" duration="1307000" />
       <workItem from="1730629804158" duration="122000" />
       <workItem from="1730693488930" duration="29286000" />
-      <workItem from="1730877777096" duration="36159000" />
+      <workItem from="1730877777096" duration="63947000" />
+      <workItem from="1731330323521" duration="1056000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />
