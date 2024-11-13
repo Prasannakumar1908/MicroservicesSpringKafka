@@ -1,0 +1,5 @@
+com/prodify/cqrs/OrderService/OrderServiceApplicationTests.class
+com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.class
+com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.class
+com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.class
+com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.class

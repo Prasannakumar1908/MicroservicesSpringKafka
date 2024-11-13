@@ -3,8 +3,8 @@ package com.prodify.cqrs.OrderService.command.api.controller;
 import com.prodify.cqrs.OrderService.command.api.command.CreateOrderCommand;
 import com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+//import io.swagger.v3.oas.annotations.Operation;
+//import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
-@Tag(name = "Order Command Controller", description = "Operations related to Order")
+//@Tag(name = "Order Command Controller", description = "Operations related to Order")
 @Slf4j
 public class OrderCommandController {
 
@@ -30,7 +30,7 @@ public class OrderCommandController {
     }
 
     @GetMapping("/message")
-    @Operation(summary = "Test Order Service", description = "Returns a test message from Order Service")
+//    @Operation(summary = "Test Order Service", description = "Returns a test message from Order Service")
 
     public String getMessage(){
         log.info("Recieved request for test message");
@@ -38,7 +38,7 @@ public class OrderCommandController {
     }
 
     @PostMapping("/order")
-    @Operation(summary = "Create an Order", description = "Creates a new order with the provided details")
+//    @Operation(summary = "Create an Order", description = "Creates a new order with the provided details")
 
     public String createOrder(@RequestBody OrderRestModel orderRestModel) {
         log.info("Received CreateOrder request with details: {}", orderRestModel);

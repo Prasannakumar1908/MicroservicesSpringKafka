@@ -49,11 +49,11 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
         <!-- SpringDoc OpenAPI for WebFlux -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-            <version>2.6.0</version> <!-- Ensure the latest compatible version -->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>-->
+<!--            <version>2.6.0</version> &lt;!&ndash; Ensure the latest compatible version &ndash;&gt;-->
+<!--        </dependency>-->
 <!--         JWT for Authentication -->
 <!--        <dependency>-->
 <!--            <groupId>io.jsonwebtoken</groupId>-->
