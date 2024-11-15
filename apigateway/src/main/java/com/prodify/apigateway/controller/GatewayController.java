@@ -246,7 +246,7 @@ public class GatewayController {
     @PostMapping("/orders")
     public Mono<ResponseEntity<String>> createOrder(@RequestBody OrderRestModel orderRestModel) {
         String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order").build();
-
+        log.info("Creating order with URI:{} and productId:{}",uri,orderRestModel.getProductId());
         return webClient.post()
                 .uri(uri)  // Using lb:// for load balancing
                 .bodyValue(orderRestModel)
@@ -256,6 +256,7 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(String.class)
                 .map(ResponseEntity::ok)
+                .doOnError(e->log.error("Error creating order:{}",e.getMessage(),e))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
     }
 
@@ -264,7 +265,7 @@ public class GatewayController {
     @GetMapping("/orders/{orderId}")
     public Mono<ResponseEntity<OrderRestModel>> getOrder(@PathVariable String orderId) {
         String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
-        System.out.println(uri);
+        log.info("Fetching order with ID:{} from URI:{}",orderId,uri);
         return webClient.get()
                 .uri(uri)  // Using lb:// for load balancing
                 .retrieve()
@@ -273,6 +274,7 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(OrderRestModel.class)
                 .map(ResponseEntity::ok)
+                .doOnError(e -> log.error("Error fetching order {}: {}", orderId, e.getMessage(), e))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 
@@ -292,10 +294,8 @@ public class GatewayController {
                 .bodyToFlux(OrderRestModel.class)
                 .collectList()
                 .map(ResponseEntity::ok)
-                .onErrorResume(e -> {
-                    log.error("Error fetching orders", e);
-                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null));
-                });
+                .doOnError(e -> log.error("Error fetching orders: {}", e.getMessage(), e))
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 
 
@@ -304,6 +304,7 @@ public class GatewayController {
     @PutMapping("/orders/{orderId}")
     public Mono<ResponseEntity<String>> updateOrder(@PathVariable String orderId, @RequestBody OrderRestModel orderRestModel) {
         String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
+        log.info("Updating order with ID: {} using URI: {}", orderId, uri);
 
         return webClient.put()
                 .uri(uri)  // Using lb:// for load balancing
@@ -314,7 +315,8 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(String.class)
                 .map(ResponseEntity::ok)
-                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
+                .doOnError(e -> log.error("Error updating order {}: {}", orderId, e.getMessage(), e))
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update order")));
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
@@ -322,7 +324,7 @@ public class GatewayController {
     @DeleteMapping("/orders/{orderId}")
     public Mono<ResponseEntity<String>> deleteOrder(@PathVariable String orderId) {
         String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
-
+        log.info("Deleting order with ID: {} from URI: {}", orderId, uri);
         return webClient.delete()
                 .uri(uri)  // Using lb:// for load balancing
                 .retrieve()
@@ -331,8 +333,10 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(String.class)
                 .map(ResponseEntity::ok)
-                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
+                .doOnError(e -> log.error("Error deleting order {}: {}", orderId, e.getMessage(), e))
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete order")));
     }
+
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Search Orders", description = "Search orders by specific criteria with pagination and sorting")
     @PostMapping("/orders/search")
@@ -367,6 +371,7 @@ public class GatewayController {
     @GetMapping("/message")
     public Mono<ResponseEntity<String>> getOrderMessage() {
         String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "message").build();
+        log.info("Fetching order message from URI: {}", uri);
 
         return webClient.get()
                 .uri(uri)  // Using lb:// for load balancing
@@ -376,7 +381,9 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(String.class)
                 .map(ResponseEntity::ok)
+                .doOnError(e -> log.error("Error fetching order message: {}", e.getMessage(), e))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
+
     }
 
     // Product Service Endpoints
@@ -386,6 +393,7 @@ public class GatewayController {
     @PostMapping("/products")
     public Mono<ResponseEntity<String>> addProduct(@RequestBody ProductRestModel productRestModel) {
         String uri = UriBuilder.of(ServiceName.PRODUCT_SERVICE_URL, "product").build();
+        log.info("Adding product with URI: {} and data: {}", uri, productRestModel);
 
         return webClient.post()
                 .uri(uri)  // Using lb:// for load balancing
@@ -396,7 +404,8 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(String.class)
                 .map(ResponseEntity::ok)
-                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
+                .doOnError(e -> log.error("Error adding product: {}", e.getMessage(), e))
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product")));
     }
 
     // User Service Endpoints
@@ -406,6 +415,7 @@ public class GatewayController {
     @GetMapping("/users/{userId}")
     public Mono<ResponseEntity<UserDTO>> getUserPaymentDetails(@PathVariable String userId) {
         String uri = UriBuilder.of(ServiceName.USER_SERVICE_URL, userId).build();
+        log.info("Fetching payment details for user ID: {} from URI: {}", userId, uri);
 
         return webClient.get()
                 .uri(uri)  // Using lb:// for load balancing
@@ -415,6 +425,7 @@ public class GatewayController {
                                 .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                 .bodyToMono(UserDTO.class)
                 .map(ResponseEntity::ok)
+                .doOnError(e -> log.error("Error fetching payment details for user {}: {}", userId, e.getMessage(), e))
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 }
