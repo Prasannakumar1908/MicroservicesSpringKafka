@@ -33,12 +33,11 @@ public class OrderQueryHandler {
         return convertToOrderRestModel(order);
     }
 
-    // Query to fetch all orders with pagination and sorting
-    public List<OrderRestModel> getAllOrders(int page, int size, String sortBy, String direction) {
-        log.info("Fetching all orders with pagination. Page: {}, Size: {}, SortBy: {}, Direction: {}", page, size, sortBy, direction);
+    // Query to fetch all orders
+    public List<OrderRestModel> getAllOrders() {
+        log.info("Fetching all order ");
 
-        Sort sort = Sort.by(Sort.Order.by(sortBy).with(Sort.Direction.fromString(direction)));
-        List<Order> orders = orderRepository.findAll(PageRequest.of(page, size, sort)).getContent();
+        List<Order> orders = orderRepository.findAll();
 
         return orders.stream()
                 .map(this::convertToOrderRestModel)

@@ -218,14 +218,19 @@ import com.prodify.apigateway.util.ServiceName;
 import com.prodify.apigateway.util.UriBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/gateway")
+@Slf4j
 public class GatewayController {
 
     private final WebClient webClient;
@@ -270,6 +275,29 @@ public class GatewayController {
                 .map(ResponseEntity::ok)
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
+
+    @Tag(name = "Order Service", description = "Operations for managing orders")
+    @Operation(summary = "Get All Orders", description = "Fetches all orders through the gateway")
+    @GetMapping("/orders")
+    public Mono<ResponseEntity<List<OrderRestModel>>> getAllOrders() {
+        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "orders").build();
+        log.info("Fetching all orders from URI: {}", uri);
+
+        return webClient.get()
+                .uri(uri)  // Using lb:// for load balancing
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
+                .bodyToFlux(OrderRestModel.class)
+                .collectList()
+                .map(ResponseEntity::ok)
+                .onErrorResume(e -> {
+                    log.error("Error fetching orders", e);
+                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null));
+                });
+    }
+
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Update an Order", description = "Updates an existing order by delegating to the Order Service")

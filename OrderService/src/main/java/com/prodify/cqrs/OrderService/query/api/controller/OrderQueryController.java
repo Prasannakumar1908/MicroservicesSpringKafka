@@ -40,13 +40,9 @@ public class OrderQueryController {
 
     // Get all orders with pagination and sorting
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderRestModel>> getAllOrders(
-            @RequestParam int page,
-            @RequestParam int size,
-            @RequestParam String sortBy,
-            @RequestParam String direction) {
+    public ResponseEntity<List<OrderRestModel>> getAllOrders() {
         try {
-            List<OrderRestModel> orders = orderQueryHandler.getAllOrders(page, size, sortBy, direction);
+            List<OrderRestModel> orders = orderQueryHandler.getAllOrders();
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
             log.error("Error fetching orders", e);
@@ -58,6 +54,7 @@ public class OrderQueryController {
     @PostMapping("/search")
     public ResponseEntity<List<OrderRestModel>> searchOrders(
             @RequestBody SearchRequest searchRequest) {
+        log.info("Received search request: {}", searchRequest);
         try {
             List<OrderRestModel> orders = orderQueryHandler.searchOrders(
                     searchRequest.getProductId(),
