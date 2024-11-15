@@ -50,20 +50,21 @@
 
 package com.prodify.apigateway.util;
 
-import lombok.Builder;
-import lombok.Data;
-
-
 public class UriBuilder {
 
     private StringBuilder pathBuilder;
 
-    // Constructor to initialize the base URI using ServiceName enum
-    public UriBuilder(ServiceName serviceName, String path) {
+    // Private constructor to prevent direct instantiation using 'new'
+    private UriBuilder(ServiceName serviceName, String path) {
         this.pathBuilder = new StringBuilder(serviceName.serviceUrl);
         if (path != null && !path.isEmpty()) {
             this.pathBuilder.append("/").append(path);
         }
+    }
+
+    // Static factory method to create an instance of UriBuilder
+    public static UriBuilder of(ServiceName serviceName, String path) {
+        return new UriBuilder(serviceName, path);
     }
 
     // Method to add path parameters dynamically
