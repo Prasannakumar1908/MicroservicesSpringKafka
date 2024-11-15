@@ -255,12 +255,47 @@ public class GatewayController {
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
-    @Operation(summary = "Get Order Message", description = "Returns a test message from the Order Service")
-    @GetMapping("/message")
-    public Mono<ResponseEntity<String>> getOrderMessage() {
-        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "message").build();
+    @Operation(summary = "Get Order", description = "Fetches an order by ID")
+    @GetMapping("/orders/{orderId}")
+    public Mono<ResponseEntity<OrderRestModel>> getOrder(@PathVariable String orderId) {
+        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
 
         return webClient.get()
+                .uri(uri)  // Using lb:// for load balancing
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
+                .bodyToMono(OrderRestModel.class)
+                .map(ResponseEntity::ok)
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
+    }
+
+    @Tag(name = "Order Service", description = "Operations for managing orders")
+    @Operation(summary = "Update an Order", description = "Updates an existing order by delegating to the Order Service")
+    @PutMapping("/orders/{orderId}")
+    public Mono<ResponseEntity<String>> updateOrder(@PathVariable String orderId, @RequestBody OrderRestModel orderRestModel) {
+        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
+
+        return webClient.put()
+                .uri(uri)  // Using lb:// for load balancing
+                .bodyValue(orderRestModel)
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
+                .bodyToMono(String.class)
+                .map(ResponseEntity::ok)
+                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
+    }
+
+    @Tag(name = "Order Service", description = "Operations for managing orders")
+    @Operation(summary = "Delete an Order", description = "Deletes an order by ID")
+    @DeleteMapping("/orders/{orderId}")
+    public Mono<ResponseEntity<String>> deleteOrder(@PathVariable String orderId) {
+        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
+
+        return webClient.delete()
                 .uri(uri)  // Using lb:// for load balancing
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
@@ -272,26 +307,13 @@ public class GatewayController {
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
-    @Operation(summary = "Search Orders", description = "Search orders with filters, pagination, and sorting")
-    @PostMapping("/orders/search")
-    public Mono<ResponseEntity<String>> searchOrders(@RequestBody SearchRequestDTO searchRequestDTO) {
-        // Using UriBuilder to build the URI dynamically with pagination and sorting
-        UriBuilder uriBuilder = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "search")
-                .addQueryParam("page", String.valueOf(searchRequestDTO.getPage()))
-                .addQueryParam("size", String.valueOf(searchRequestDTO.getSize()));
+    @Operation(summary = "Get Order Message", description = "Returns a test message from the Order Service")
+    @GetMapping("/message")
+    public Mono<ResponseEntity<String>> getOrderMessage() {
+        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "message").build();
 
-        // Add sorting query parameters if provided
-        if (searchRequestDTO.getSort() != null) {
-            searchRequestDTO.getSort().forEach((key, value) -> {
-                uriBuilder.addQueryParam("sort", key + "," + value);  // appending sorting like sort=field,asc
-            });
-        }
-
-        String uri = uriBuilder.build();
-
-        return webClient.post()
+        return webClient.get()
                 .uri(uri)  // Using lb:// for load balancing
-                .bodyValue(searchRequestDTO) // Forward the search request
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
                         response -> response.bodyToMono(String.class)
@@ -340,4 +362,5 @@ public class GatewayController {
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 }
+
 

@@ -5,51 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/commands/CreateUserCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/filter/RequestIdContextFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProductService/src/main/java/com/prodify/cqrs/ProductService/command/api/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/command/CreateUserCommandHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/command/DeleteOrderCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/command/UpdateOrderCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderDeletedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderUpdatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/data/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/data/OrderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/dto/SearchRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/exception/GlobalExceptionQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handler/OrderQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handlers/OrderQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/model/OrderRestModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/models/OrderResponseModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/queries/GetOrderByIdQuery.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/dto/SearchRequestDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/CardDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/CardDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/command/CreateOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/command/CreateOrderCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/data/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/data/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/data/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/data/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderCreatedEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/model/OrderRestModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/model/OrderRestModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/OrderService-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/OrderService-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.OrderServiceApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.OrderServiceApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.OrderServiceApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.OrderServiceApplicationTests.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProductService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ProductService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProductService/src/main/java/com/prodify/cqrs/ProductService/command/api/events/ProductEventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProductService/src/main/java/com/prodify/cqrs/ProductService/command/api/events/ProductEventsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/config/WebClientConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" afterDir="false" />
@@ -142,7 +119,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-22",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka",
+    "last_opened_file_path": "/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -167,12 +144,15 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.prodify.cqrs.OrderService.command.api.command" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/OrderService" />
       <recent name="$PROJECT_DIR$/UserService" />
       <recent name="$PROJECT_DIR$/ShipmentService" />
       <recent name="$PROJECT_DIR$/ProductService" />
       <recent name="$PROJECT_DIR$/PaymentService" />
-      <recent name="$PROJECT_DIR$/CommonService" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -550,7 +530,7 @@
       <workItem from="1731570684031" duration="1600000" />
       <workItem from="1731575536075" duration="24000" />
       <workItem from="1731575566518" duration="61000" />
-      <workItem from="1731575649035" duration="17406000" />
+      <workItem from="1731575649035" duration="26472000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />

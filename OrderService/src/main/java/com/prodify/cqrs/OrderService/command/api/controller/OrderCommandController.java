@@ -64,6 +64,8 @@
 package com.prodify.cqrs.OrderService.command.api.controller;
 
 import com.prodify.cqrs.OrderService.command.api.command.CreateOrderCommand;
+import com.prodify.cqrs.OrderService.command.api.command.DeleteOrderCommand;
+import com.prodify.cqrs.OrderService.command.api.command.UpdateOrderCommand;
 import com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import lombok.extern.slf4j.Slf4j;
@@ -134,5 +136,61 @@ public class OrderCommandController {
                     .body("Unexpected error occurred. Please contact support.");
         }
     }
+
+    @PutMapping("/order/{orderId}")
+    public ResponseEntity<String> updateOrder(@PathVariable String orderId, @RequestBody OrderRestModel orderRestModel) {
+        log.info("Received UpdateOrder request for Order ID: {}", orderId);
+
+        UpdateOrderCommand updateOrderCommand = UpdateOrderCommand.builder()
+                .orderId(orderId)
+                .userId(orderRestModel.getUserId())
+                .addressId(orderRestModel.getAddressId())
+                .productId(orderRestModel.getProductId())
+                .quantity(orderRestModel.getQuantity())
+                .orderStatus("UPDATED")
+                .build();
+
+        try {
+            commandGateway.sendAndWait(updateOrderCommand);
+            log.info("Successfully sent UpdateOrderCommand for Order ID: {}", orderId);
+            return ResponseEntity.ok("Order Updated with ID: " + orderId);
+
+        } catch (CommandExecutionException e) {
+            log.error("Failed to execute UpdateOrderCommand for Order ID: {}", orderId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating order. Please try again later.");
+
+        } catch (Exception e) {
+            log.error("Unexpected error while updating order for Order ID: {}", orderId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unexpected error occurred. Please contact support.");
+        }
+    }
+
+    @DeleteMapping("/order/{orderId}")
+    public ResponseEntity<String> deleteOrder(@PathVariable String orderId) {
+        log.info("Received DeleteOrder request for Order ID: {}", orderId);
+
+        DeleteOrderCommand deleteOrderCommand = DeleteOrderCommand.builder()
+                .orderId(orderId)
+                .build();
+
+        try {
+            commandGateway.sendAndWait(deleteOrderCommand);
+            log.info("Successfully sent DeleteOrderCommand for Order ID: {}", orderId);
+            return ResponseEntity.ok("Order Deleted with ID: " + orderId);
+
+        } catch (CommandExecutionException e) {
+            log.error("Failed to execute DeleteOrderCommand for Order ID: {}", orderId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting order. Please try again later.");
+
+        } catch (Exception e) {
+            log.error("Unexpected error while deleting order for Order ID: {}", orderId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unexpected error occurred. Please contact support.");
+        }
+    }
+
 }
 

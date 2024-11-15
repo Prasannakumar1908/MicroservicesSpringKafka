@@ -103,7 +103,11 @@ import com.prodify.cqrs.CommonService.commands.CompleteOrderCommand;
 import com.prodify.cqrs.CommonService.events.OrderCancelledEvent;
 import com.prodify.cqrs.CommonService.events.OrderCompletedEvent;
 import com.prodify.cqrs.OrderService.command.api.command.CreateOrderCommand;
+import com.prodify.cqrs.OrderService.command.api.command.DeleteOrderCommand;
+import com.prodify.cqrs.OrderService.command.api.command.UpdateOrderCommand;
 import com.prodify.cqrs.OrderService.command.api.events.OrderCreatedEvent;
+import com.prodify.cqrs.OrderService.command.api.events.OrderDeletedEvent;
+import com.prodify.cqrs.OrderService.command.api.events.OrderUpdatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -238,4 +242,44 @@ public class OrderAggregate {
             throw new IllegalArgumentException("Order ID cannot be null or empty in CancelOrderCommand");
         }
     }
+    @CommandHandler
+    public void handle(UpdateOrderCommand updateOrderCommand) {
+        log.info("Handling UpdateOrderCommand for Order Id:{}", updateOrderCommand.getOrderId());
+
+        OrderUpdatedEvent orderUpdatedEvent = new OrderUpdatedEvent(
+                updateOrderCommand.getOrderId(),
+                updateOrderCommand.getProductId(),
+                updateOrderCommand.getQuantity(),
+                updateOrderCommand.getOrderStatus(),
+                updateOrderCommand.getUserId(),
+                updateOrderCommand.getAddressId()
+        );
+
+        AggregateLifecycle.apply(orderUpdatedEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(OrderUpdatedEvent event) {
+        log.info("Event sourcing OrderUpdatedEvent for Order Id:{}", event.getOrderId());
+        this.productId = event.getProductId();
+        this.quantity = event.getQuantity();
+        this.orderStatus = event.getOrderStatus();
+        this.userId = event.getUserId();
+        this.addressId = event.getAddressId();
+    }
+
+    @CommandHandler
+    public void handle(DeleteOrderCommand deleteOrderCommand) {
+        log.info("Handling DeleteOrderCommand for Order Id:{}", deleteOrderCommand.getOrderId());
+
+        OrderDeletedEvent orderDeletedEvent = new OrderDeletedEvent(deleteOrderCommand.getOrderId());
+        AggregateLifecycle.apply(orderDeletedEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(OrderDeletedEvent event) {
+        log.info("Event sourcing OrderDeletedEvent for Order Id:{}", event.getOrderId());
+        AggregateLifecycle.markDeleted();
+    }
+
 }
