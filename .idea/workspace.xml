@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/dto/SearchRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/dto/SearchRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/data/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/data/OrderRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/dto/SearchRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/dto/SearchRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handler/OrderQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handler/OrderQueryHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/data/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/data/OrderRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/config/WebClientConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" afterDir="false" />
@@ -491,7 +494,7 @@
       <workItem from="1731570684031" duration="1600000" />
       <workItem from="1731575536075" duration="24000" />
       <workItem from="1731575566518" duration="61000" />
-      <workItem from="1731575649035" duration="33082000" />
+      <workItem from="1731575649035" duration="34775000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />

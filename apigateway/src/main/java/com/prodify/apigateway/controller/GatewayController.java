@@ -212,7 +212,7 @@ package com.prodify.apigateway.controller;
 
 import com.prodify.apigateway.dto.OrderRestModel;
 import com.prodify.apigateway.dto.ProductRestModel;
-import com.prodify.apigateway.dto.SearchRequestDTO;
+import com.prodify.apigateway.dto.SearchRequest;
 import com.prodify.apigateway.dto.UserDTO;
 import com.prodify.apigateway.util.ServiceName;
 import com.prodify.apigateway.util.UriBuilder;
@@ -333,6 +333,34 @@ public class GatewayController {
                 .map(ResponseEntity::ok)
                 .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
     }
+    @Tag(name = "Order Service", description = "Operations for managing orders")
+    @Operation(summary = "Search Orders", description = "Search orders by specific criteria with pagination and sorting")
+    @PostMapping("/orders/search")
+    public Mono<ResponseEntity<List<OrderRestModel>>> searchOrders(@RequestBody SearchRequest searchRequest) {
+        // Build the URI for the Order Service search endpoint
+        String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "search").build();
+
+        // Log the URI for debugging purposes
+        log.info("Searching orders with criteria: {}", searchRequest);
+
+        // Send the POST request with search criteria to the Order Service
+        return webClient.post()
+                .uri(uri)  // Using lb:// for load balancing
+                .bodyValue(searchRequest)  // Pass the searchRequest as the body
+                .retrieve()
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
+                .bodyToFlux(OrderRestModel.class)  // Convert the response to a flux of OrderRestModel
+                .collectList()  // Collect the flux into a list
+                .map(ResponseEntity::ok)  // Return the list as the body of the ResponseEntity
+                .onErrorResume(e -> {
+                    // Log the error and return an Internal Server Error response
+                    log.error("Error searching orders", e);
+                    return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null));
+                });
+    }
+
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Get Order Message", description = "Returns a test message from the Order Service")

@@ -49,16 +49,18 @@ public class OrderQueryController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-
-    // Search orders with dynamic filtering, pagination, and sorting
+    // New POST endpoint for searching orders with pagination and sorting
     @PostMapping("/search")
-    public ResponseEntity<List<OrderRestModel>> searchOrders(
-            @RequestBody SearchRequest searchRequest) {
+    public ResponseEntity<List<OrderRestModel>> searchOrders(@RequestBody SearchRequest searchRequest) {
         log.info("Received search request: {}", searchRequest);
+
         try {
             List<OrderRestModel> orders = orderQueryHandler.searchOrders(
                     searchRequest.getProductId(),
                     searchRequest.getUserId(),
+                    searchRequest.getAddressId(),
+                    searchRequest.getQuantityMin(),
+                    searchRequest.getQuantityMax(),
                     searchRequest.getPage(),
                     searchRequest.getSize(),
                     searchRequest.getSortBy(),
@@ -66,8 +68,9 @@ public class OrderQueryController {
             );
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
-            log.error("Error performing order search", e);
+            log.error("Error during order search", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
 }

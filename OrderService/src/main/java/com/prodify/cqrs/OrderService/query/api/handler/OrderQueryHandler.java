@@ -43,26 +43,24 @@ public class OrderQueryHandler {
                 .map(this::convertToOrderRestModel)
                 .collect(Collectors.toList());
     }
+    // New method to search orders based on dynamic criteria (filtering, pagination, sorting)
+    public List<OrderRestModel> searchOrders(String productId, String userId, String addressId,
+                                             Integer quantityMin, Integer quantityMax, int page, int size,
+                                             String sortBy, String direction) {
 
-    // Search orders with dynamic filtering, pagination, and sorting
-    public List<OrderRestModel> searchOrders(String productId, String userId, int page, int size, String sortBy, String direction) {
-        log.info("Searching orders with filters - ProductId: {}, UserId: {}, Page: {}, Size: {}, SortBy: {}, Direction: {}",
-                productId, userId, page, size, sortBy, direction);
+        // Prepare sorting
+        Sort.Direction sortDirection = Sort.Direction.fromString(direction);
+        Sort sort = Sort.by(Sort.Order.by(sortBy).with(sortDirection));
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
 
-        // You can extend this logic to add more filtering criteria as needed
-        Sort sort = Sort.by(Sort.Order.by(sortBy).with(Sort.Direction.fromString(direction)));
-        List<Order> orders = orderRepository.findAll(PageRequest.of(page, size, sort))
-                .getContent()
-                .stream()
-                .filter(order -> (productId == null || order.getProductId().equals(productId)) &&
-                        (userId == null || order.getUserId().equals(userId)))
-                .collect(Collectors.toList());
+        // Query the database with the provided filters and pagination
+        List<Order> orders = orderRepository.findAllByFilters(productId, userId, addressId, quantityMin, quantityMax, pageRequest);
 
+        // Convert the results into OrderRestModel
         return orders.stream()
                 .map(this::convertToOrderRestModel)
                 .collect(Collectors.toList());
     }
-
     // Convert entity to model
     private OrderRestModel convertToOrderRestModel(Order order) {
         OrderRestModel model = new OrderRestModel();
