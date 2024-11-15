@@ -259,7 +259,7 @@ public class GatewayController {
     @GetMapping("/orders/{orderId}")
     public Mono<ResponseEntity<OrderRestModel>> getOrder(@PathVariable String orderId) {
         String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
-
+        System.out.println(uri);
         return webClient.get()
                 .uri(uri)  // Using lb:// for load balancing
                 .retrieve()
