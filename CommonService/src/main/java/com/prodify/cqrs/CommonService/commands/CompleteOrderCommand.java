@@ -15,4 +15,5 @@ public class CompleteOrderCommand {
     @TargetAggregateIdentifier
     private String orderId;
     private String orderStatus;
+    private String requestId;
 }

@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDeletedEvent {
     private String orderId;
+    private String requestId;
 }

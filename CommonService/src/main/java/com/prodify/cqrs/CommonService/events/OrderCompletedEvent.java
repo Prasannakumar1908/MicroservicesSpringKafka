@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class OrderCompletedEvent {
     private String orderId;
     private String orderStatus;
+    private String requestId;
 }

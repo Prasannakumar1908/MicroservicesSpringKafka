@@ -9,4 +9,5 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class DeleteOrderCommand {
     @TargetAggregateIdentifier
     private String orderId;
+    private String requestId;
 }

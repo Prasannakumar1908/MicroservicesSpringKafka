@@ -308,6 +308,7 @@ public class OrderCommandController {
                 .productId(orderRestModel.getProductId())
                 .quantity(orderRestModel.getQuantity())
                 .orderStatus("CREATED")
+                .requestId(requestId)
                 .build();
 
         try {
@@ -344,6 +345,7 @@ public class OrderCommandController {
                 .productId(orderRestModel.getProductId())
                 .quantity(orderRestModel.getQuantity())
                 .orderStatus("UPDATED")
+                .requestId(requestId)
                 .build();
 
         try {
@@ -375,6 +377,7 @@ public class OrderCommandController {
 
         DeleteOrderCommand deleteOrderCommand = DeleteOrderCommand.builder()
                 .orderId(orderId)
+                .requestId(requestId)
                 .build();
 
         try {

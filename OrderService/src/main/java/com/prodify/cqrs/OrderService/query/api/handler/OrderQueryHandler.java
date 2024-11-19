@@ -3,6 +3,7 @@ package com.prodify.cqrs.OrderService.query.api.handler;
 import com.prodify.cqrs.OrderService.command.api.data.Order;
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import com.prodify.cqrs.OrderService.command.api.data.OrderRepository;
+import com.prodify.cqrs.OrderService.command.api.util.RequestIdContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,15 +19,18 @@ import java.util.stream.Collectors;
 public class OrderQueryHandler {
 
     private final OrderRepository orderRepository;
+    private final RequestIdContext requestIdContext;
 
     @Autowired
-    public OrderQueryHandler(OrderRepository orderRepository) {
+    public OrderQueryHandler(OrderRepository orderRepository, RequestIdContext requestIdContext) {
         this.orderRepository = orderRepository;
+        this.requestIdContext = requestIdContext;
     }
 
     // Query to fetch a specific order by orderId
     public OrderRestModel getOrderById(String orderId) {
-        log.info("Fetching order with ID: {}", orderId);
+        String requestId = requestIdContext.getRequestId();
+        log.info("Fetching order with ID: {} with requestId:{}", orderId, requestId);
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
                 new EntityNotFoundException("Order with ID " + orderId + " not found"));
 
@@ -35,7 +39,7 @@ public class OrderQueryHandler {
 
     // Query to fetch all orders
     public List<OrderRestModel> getAllOrders() {
-        log.info("Fetching all order ");
+        log.info("Fetching all order with requestId:{}", requestIdContext.getRequestId());
 
         List<Order> orders = orderRepository.findAll();
 

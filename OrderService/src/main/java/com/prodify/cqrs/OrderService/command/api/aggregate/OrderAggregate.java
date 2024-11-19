@@ -128,6 +128,7 @@ public class OrderAggregate {
     private String addressId;
     private Integer quantity;
     private String orderStatus;
+    private String requestId;
 
     public OrderAggregate() {
     }
@@ -136,60 +137,63 @@ public class OrderAggregate {
     public OrderAggregate(CreateOrderCommand createOrderCommand) {
         try {
             validateCreateOrderCommand(createOrderCommand);
-            log.info("Handling CreateOrderCommand for Order Id:{}", createOrderCommand.getOrderId());
+            log.info("Handling CreateOrderCommand for Order Id:{} with requestId:{} ", createOrderCommand.getOrderId(),createOrderCommand.getRequestId());
             OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(
                     createOrderCommand.getOrderId(),
                     createOrderCommand.getProductId(),
                     createOrderCommand.getUserId(),
                     createOrderCommand.getAddressId(),
                     createOrderCommand.getQuantity(),
-                    createOrderCommand.getOrderStatus()
+                    createOrderCommand.getOrderStatus(),
+                    createOrderCommand.getRequestId()
             );
             BeanUtils.copyProperties(createOrderCommand, orderCreatedEvent);
             AggregateLifecycle.apply(orderCreatedEvent);
-            log.info("Applied OrderCreatedEvent for Order Id:{}", orderCreatedEvent.getOrderId());
+            log.info("Applied OrderCreatedEvent for Order Id:{} with requestId:{}", orderCreatedEvent.getOrderId(),createOrderCommand.getRequestId());
         } catch (IllegalArgumentException e) {
-            log.error("CreateOrderCommand validation failed: {}", e.getMessage());
+            log.error("CreateOrderCommand validation failed: {} with requestId:{}", e.getMessage(),createOrderCommand.getRequestId());
             throw e;
         } catch (Exception e) {
-            log.error("Unexpected error occurred while handling CreateOrderCommand: {}", e.getMessage());
+            log.error("Unexpected error occurred while handling CreateOrderCommand: {} with requestId:{}", e.getMessage(),createOrderCommand.getRequestId());
             throw new RuntimeException("Failed to create order", e);
         }
     }
 
     @EventSourcingHandler
     public void on(OrderCreatedEvent event) {
-        log.info("Event sourcing OrderCreatedEvent for Order Id:{}", event.getOrderId());
+        log.info("Event sourcing OrderCreatedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.orderStatus = event.getOrderStatus();
         this.userId = event.getUserId();
         this.orderId = event.getOrderId();
         this.quantity = event.getQuantity();
         this.productId = event.getProductId();
         this.addressId = event.getAddressId();
+        this.requestId = event.getRequestId();
+
     }
 
     @CommandHandler
     public void handle(CompleteOrderCommand completeOrderCommand) {
         try {
             validateCompleteOrderCommand(completeOrderCommand);
-            log.info("Handling CompleteOrderCommand for Order Id:{}", completeOrderCommand.getOrderId());
+            log.info("Handling CompleteOrderCommand for Order Id:{} with requestId:{}", completeOrderCommand.getOrderId(),completeOrderCommand.getRequestId());
             OrderCompletedEvent orderCompletedEvent = OrderCompletedEvent.builder()
                     .orderStatus(completeOrderCommand.getOrderStatus())
                     .orderId(completeOrderCommand.getOrderId())
                     .build();
             AggregateLifecycle.apply(orderCompletedEvent);
         } catch (IllegalArgumentException e) {
-            log.error("CompleteOrderCommand validation failed: {}", e.getMessage());
+            log.error("CompleteOrderCommand validation failed: {} with requestId:{}", e.getMessage(),completeOrderCommand.getRequestId());
             throw e;
         } catch (Exception e) {
-            log.error("Unexpected error occurred while handling CompleteOrderCommand: {}", e.getMessage());
+            log.error("Unexpected error occurred while handling CompleteOrderCommand: {} with requestId:{}", e.getMessage(),completeOrderCommand.getRequestId());
             throw new RuntimeException("Failed to complete order", e);
         }
     }
 
     @EventSourcingHandler
     public void on(OrderCompletedEvent event) {
-        log.info("Event sourcing OrderCompletedEvent for Order Id:{}", event.getOrderId());
+        log.info("Event sourcing OrderCompletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.orderStatus = event.getOrderStatus();
     }
 
@@ -244,7 +248,7 @@ public class OrderAggregate {
     }
     @CommandHandler
     public void handle(UpdateOrderCommand updateOrderCommand) {
-        log.info("Handling UpdateOrderCommand for Order Id:{}", updateOrderCommand.getOrderId());
+        log.info("Handling UpdateOrderCommand for Order Id:{} with requestId:{}", updateOrderCommand.getOrderId(),updateOrderCommand.getRequestId());
 
         OrderUpdatedEvent orderUpdatedEvent = new OrderUpdatedEvent(
                 updateOrderCommand.getOrderId(),
@@ -252,7 +256,8 @@ public class OrderAggregate {
                 updateOrderCommand.getQuantity(),
                 updateOrderCommand.getOrderStatus(),
                 updateOrderCommand.getUserId(),
-                updateOrderCommand.getAddressId()
+                updateOrderCommand.getAddressId(),
+                updateOrderCommand.getRequestId()
         );
 
         AggregateLifecycle.apply(orderUpdatedEvent);
@@ -260,7 +265,7 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderUpdatedEvent event) {
-        log.info("Event sourcing OrderUpdatedEvent for Order Id:{}", event.getOrderId());
+        log.info("Event sourcing OrderUpdatedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.productId = event.getProductId();
         this.quantity = event.getQuantity();
         this.orderStatus = event.getOrderStatus();
@@ -270,15 +275,15 @@ public class OrderAggregate {
 
     @CommandHandler
     public void handle(DeleteOrderCommand deleteOrderCommand) {
-        log.info("Handling DeleteOrderCommand for Order Id:{}", deleteOrderCommand.getOrderId());
+        log.info("Handling DeleteOrderCommand for Order Id:{} with requestId:{}", deleteOrderCommand.getOrderId(),deleteOrderCommand.getRequestId());
 
-        OrderDeletedEvent orderDeletedEvent = new OrderDeletedEvent(deleteOrderCommand.getOrderId());
+        OrderDeletedEvent orderDeletedEvent = new OrderDeletedEvent(deleteOrderCommand.getOrderId(),deleteOrderCommand.getRequestId());
         AggregateLifecycle.apply(orderDeletedEvent);
     }
 
     @EventSourcingHandler
     public void on(OrderDeletedEvent event) {
-        log.info("Event sourcing OrderDeletedEvent for Order Id:{}", event.getOrderId());
+        log.info("Event sourcing OrderDeletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         AggregateLifecycle.markDeleted();
     }
 

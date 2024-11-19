@@ -179,7 +179,7 @@ public class OrderProcessingSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
     private void handle(OrderCreatedEvent event) {
-        log.info("Starting saga for OrderCreatedEvent with Order ID: {}", event.getOrderId());
+        log.info("Starting saga for OrderCreatedEvent with Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
 
         GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(event.getUserId());
         User user;
@@ -207,7 +207,7 @@ public class OrderProcessingSaga {
             commandGateway.sendAndWait(validatePaymentCommand);
             log.info("ValidatePaymentCommand sent for Order ID: {}", event.getOrderId());
         } catch (Exception e) {
-            log.error("Failed to send ValidatePaymentCommand for Order ID: {}", event.getOrderId(), e);
+            log.error("Failed to send ValidatePaymentCommand for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId(), e);
             cancelOrderCommand(event.getOrderId());
         }
     }
@@ -223,7 +223,6 @@ public class OrderProcessingSaga {
             }
         });
     }
-
     @SagaEventHandler(associationProperty = "orderId")
     private void handle(PaymentProcessedEvent event) {
         log.info("PaymentProcessedEvent in Saga for Order Id : {}", event.getOrderId());

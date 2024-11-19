@@ -10,4 +10,5 @@ public class OrderRestModel {
     private String addressId;
     private Integer quantity;
     private String orderStatus;
+    private String requestId;
 }

@@ -79,21 +79,21 @@ public class OrderEventsHandler {
 
     @EventHandler
     public void on(OrderCreatedEvent event) {
-        log.info("Handling OrderCreatedEvent for Order ID: {}", event.getOrderId());
+        log.info("Handling OrderCreatedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
         Order order = new Order();
         BeanUtils.copyProperties(event, order);
 
         try {
             orderRepository.save(order);
-            log.info("Order saved in database for Order ID: {}", order.getOrderId());
+            log.info("Order saved in database for Order ID: {} with requestId:{}", order.getOrderId(),event.getRequestId());
         } catch (DataAccessException e) {
-            log.error("Error saving order in database for Order ID: {}", event.getOrderId(), e);
+            log.error("Error saving order in database for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId(), e);
         }
     }
 
     @EventHandler
     public void on(OrderCompletedEvent event) {
-        log.info("Handling OrderCompletedEvent for Order ID: {}", event.getOrderId());
+        log.info("Handling OrderCompletedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
 
         try {
             Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
@@ -101,18 +101,18 @@ public class OrderEventsHandler {
                 Order order = orderOptional.get();
                 order.setOrderStatus(event.getOrderStatus());
                 orderRepository.save(order);
-                log.info("Order status updated to COMPLETED for Order ID: {}", event.getOrderId());
+                log.info("Order status updated to COMPLETED for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
             } else {
-                log.warn("Order not found in database for OrderCompletedEvent. Order ID: {}", event.getOrderId());
+                log.warn("Order not found in database for OrderCompletedEvent. Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
             }
         } catch (DataAccessException e) {
-            log.error("Error updating order status to COMPLETED for Order ID: {}", event.getOrderId(), e);
+            log.error("Error updating order status to COMPLETED for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId(), e);
         }
     }
 
     @EventHandler
     public void on(OrderCancelledEvent event) {
-        log.info("Handling OrderCancelledEvent for Order ID: {}", event.getOrderId());
+        log.info("Handling OrderCancelledEvent for Order ID: {} ", event.getOrderId());
 
         try {
             Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
@@ -120,17 +120,17 @@ public class OrderEventsHandler {
                 Order order = orderOptional.get();
                 order.setOrderStatus(event.getOrderStatus());
                 orderRepository.save(order);
-                log.info("Order status updated to CANCELLED for Order ID: {}", event.getOrderId());
+                log.info("Order status updated to CANCELLED for Order ID: {} ", event.getOrderId());
             } else {
-                log.warn("Order not found in database for OrderCancelledEvent. Order ID: {}", event.getOrderId());
+                log.warn("Order not found in database for OrderCancelledEvent. Order ID: {} ", event.getOrderId());
             }
         } catch (DataAccessException e) {
-            log.error("Error updating order status to CANCELLED for Order ID: {}", event.getOrderId(), e);
+            log.error("Error updating order status to CANCELLED for Order ID: {} ", event.getOrderId(), e);
         }
     }
     @EventHandler
     public void on(OrderUpdatedEvent event) {
-        log.info("Handling OrderUpdatedEvent for Order ID: {}", event.getOrderId());
+        log.info("Handling OrderUpdatedEvent for Order ID: {} ", event.getOrderId());
 
         Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
         if (orderOptional.isPresent()) {
@@ -141,18 +141,18 @@ public class OrderEventsHandler {
             order.setUserId(event.getUserId());
             order.setAddressId(event.getAddressId());
             orderRepository.save(order);
-            log.info("Order updated in database for Order ID: {}", event.getOrderId());
+            log.info("Order updated in database for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
         } else {
-            log.warn("Order not found in database for OrderUpdatedEvent. Order ID: {}", event.getOrderId());
+            log.warn("Order not found in database for OrderUpdatedEvent. Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
         }
     }
 
     @EventHandler
     public void on(OrderDeletedEvent event) {
-        log.info("Handling OrderDeletedEvent for Order ID: {}", event.getOrderId());
+        log.info("Handling OrderDeletedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
 
         orderRepository.deleteById(event.getOrderId());
-        log.info("Order deleted from database for Order ID: {}", event.getOrderId());
+        log.info("Order deleted from database for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
     }
 
 }

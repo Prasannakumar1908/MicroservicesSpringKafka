@@ -15,5 +15,6 @@ public class UpdateOrderCommand {
     private String orderStatus;
     private String userId;
     private String addressId;
+    private String requestId;
 }
 

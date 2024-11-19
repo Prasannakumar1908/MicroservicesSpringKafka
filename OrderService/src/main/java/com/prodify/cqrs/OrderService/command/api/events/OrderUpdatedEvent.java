@@ -14,4 +14,5 @@ public class OrderUpdatedEvent {
     private String orderStatus;
     private String userId;
     private String addressId;
+    private String requestId;
 }

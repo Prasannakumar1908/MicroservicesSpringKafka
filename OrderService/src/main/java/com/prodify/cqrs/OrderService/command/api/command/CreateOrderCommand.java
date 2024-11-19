@@ -19,4 +19,5 @@ public class CreateOrderCommand {
     private String addressId;
     private Integer quantity;
     private String orderStatus;
+    private String requestId;
 }

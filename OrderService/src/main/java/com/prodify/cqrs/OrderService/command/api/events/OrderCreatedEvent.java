@@ -17,4 +17,5 @@ public class OrderCreatedEvent {
     private String addressId;
     private Integer quantity;
     private String orderStatus;
+    private String requestId;
 }
