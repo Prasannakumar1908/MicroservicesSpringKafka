@@ -27,8 +27,9 @@ public class OrderKafkaProducerTest {
     public void testSendOrderEvent() {
         String topic = "order-events";
         String orderData = "Order data";
+        String orderId = "order-id";
 
-        orderKafkaProducer.sendOrderEvent(topic, orderData);
+        orderKafkaProducer.sendOrderEvent(topic, orderId, orderData);
 
         verify(kafkaTemplate, times(1)).send(topic, orderData);
     }

@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/config/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/prodify/cqrs/PaymentService/command/api/config/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/prodify/cqrs/PaymentService/command/api/events/OrderEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/prodify/cqrs/PaymentService/command/api/kafka/PaymentEventProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/prodify/cqrs/PaymentService/command/api/model/OrderRestModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/model/OrderRestModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/model/OrderRestModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/kafka/OrderKafkaProducer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/model/OrderRestModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/model/OrderRestModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PaymentService/src/main/java/com/prodify/cqrs/PaymentService/command/api/kafka/PaymentKafkaConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/PaymentService/src/main/java/com/prodify/cqrs/PaymentService/command/api/kafka/OrderKafkaConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +142,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OrderAggregateTest">
+  <component name="RunManager" selected="JUnit.OrderProcessingSagaTest">
     <configuration name="OrderAggregateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OrderService" />
       <extension name="coverage">
@@ -171,6 +153,36 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.aggregate" />
       <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderEventsHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OrderService" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.events.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.events" />
+      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderKafkaProducerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OrderService" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.kafka.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.kafka" />
+      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -201,36 +213,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.prodify.cqrs.ProductService.command.api.controller" />
       <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.ProductService.command.api.controller.ProductCommandControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductEventsHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ProductService" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.prodify.cqrs.ProductService.command.api.events.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.prodify.cqrs.ProductService.command.api.events" />
-      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.ProductService.command.api.events.ProductEventsHandlerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductQueryControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ProductService" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.prodify.cqrs.ProductService.query.api.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.prodify.cqrs.ProductService.query.api.controller" />
-      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.ProductService.query.api.controller.ProductQueryControllerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -486,11 +468,11 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.OrderEventsHandlerTest" />
+      <item itemvalue="JUnit.OrderKafkaProducerTest" />
       <item itemvalue="JUnit.OrderAggregateTest" />
       <item itemvalue="JUnit.OrderProcessingSagaTest" />
       <item itemvalue="JUnit.ProductCommandControllerTest" />
-      <item itemvalue="JUnit.ProductEventsHandlerTest" />
-      <item itemvalue="JUnit.ProductQueryControllerTest" />
       <item itemvalue="Maven.apigateway [clean,compile,install]" />
       <item itemvalue="Maven.gatewayservice [clean,compile,install]" />
       <item itemvalue="Maven.spring-boot-axon-cqrs-es [clean,compile...]" />
@@ -507,11 +489,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OrderProcessingSagaTest" />
+        <item itemvalue="JUnit.OrderKafkaProducerTest" />
+        <item itemvalue="JUnit.OrderEventsHandlerTest" />
         <item itemvalue="JUnit.OrderAggregateTest" />
         <item itemvalue="JUnit.ProductCommandControllerTest" />
-        <item itemvalue="JUnit.ProductQueryControllerTest" />
-        <item itemvalue="JUnit.ProductEventsHandlerTest" />
-        <item itemvalue="JUnit.OrderProcessingSagaTest" />
       </list>
     </recent_temporary>
   </component>
@@ -549,7 +531,7 @@
       <workItem from="1731575566518" duration="61000" />
       <workItem from="1731575649035" duration="47474000" />
       <workItem from="1731914713303" duration="30000" />
-      <workItem from="1731914776770" duration="43405000" />
+      <workItem from="1731914776770" duration="44106000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />
