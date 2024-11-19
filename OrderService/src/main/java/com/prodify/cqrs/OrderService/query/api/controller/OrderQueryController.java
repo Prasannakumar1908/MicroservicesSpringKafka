@@ -1,5 +1,6 @@
 package com.prodify.cqrs.OrderService.query.api.controller;
 
+import com.prodify.cqrs.OrderService.command.api.util.RequestIdContext;
 import com.prodify.cqrs.OrderService.query.api.dto.SearchRequest;  // Import SearchRequest from the correct package
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import com.prodify.cqrs.OrderService.query.api.handler.OrderQueryHandler;
@@ -17,15 +18,19 @@ import java.util.List;
 public class OrderQueryController {
 
     private final OrderQueryHandler orderQueryHandler;
+    private final RequestIdContext requestIdContext;
 
     @Autowired
-    public OrderQueryController(OrderQueryHandler orderQueryHandler) {
+    public OrderQueryController(OrderQueryHandler orderQueryHandler, RequestIdContext requestIdContext) {
         this.orderQueryHandler = orderQueryHandler;
+        this.requestIdContext = requestIdContext;
     }
 
     // Get a specific order by orderId
     @GetMapping("/order/{orderId}")
     public ResponseEntity<OrderRestModel> getOrder(@PathVariable String orderId) {
+        String requestId = requestIdContext.getRequestId();
+        log.info("Getting the order details with orderID:{} and Request ID: {}",orderId, requestId);
         try {
             OrderRestModel order = orderQueryHandler.getOrderById(orderId);
             if (order == null) {
@@ -41,6 +46,8 @@ public class OrderQueryController {
     // Get all orders with pagination and sorting
     @GetMapping("/orders")
     public ResponseEntity<List<OrderRestModel>> getAllOrders() {
+        String requestId = requestIdContext.getRequestId();
+        log.info("Getting all orders in the database with requestID:{}", requestId);
         try {
             List<OrderRestModel> orders = orderQueryHandler.getAllOrders();
             return ResponseEntity.ok(orders);
@@ -52,7 +59,9 @@ public class OrderQueryController {
     // New POST endpoint for searching orders with pagination and sorting
     @PostMapping("/search")
     public ResponseEntity<List<OrderRestModel>> searchOrders(@RequestBody SearchRequest searchRequest) {
-        log.info("Received search request: {}", searchRequest);
+
+        String requestId = requestIdContext.getRequestId();
+        log.info("Received search request: {} and with requestID:{}", searchRequest,requestId);
 
         try {
             List<OrderRestModel> orders = orderQueryHandler.searchOrders(

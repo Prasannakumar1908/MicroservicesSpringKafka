@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.220 s -- in com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.216 s <<< FAILURE! -- in com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest
+com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.testSendOrderEvent -- Time elapsed: 0.209 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.concurrent.CompletableFuture.whenComplete(java.util.function.BiConsumer)" because "future" is null
+	at com.prodify.cqrs.OrderService.command.api.kafka.OrderKafkaProducer.sendOrderEvent(OrderKafkaProducer.java:46)
+	at com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.testSendOrderEvent(OrderKafkaProducerTest.java:31)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
