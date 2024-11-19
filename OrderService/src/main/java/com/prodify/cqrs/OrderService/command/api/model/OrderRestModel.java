@@ -21,4 +21,6 @@ public class OrderRestModel {
 
     @Positive(message = "Quantity must be greater than zero")
     private Integer quantity;
+    private String orderId;       // New field
+    private String requestId;
 }

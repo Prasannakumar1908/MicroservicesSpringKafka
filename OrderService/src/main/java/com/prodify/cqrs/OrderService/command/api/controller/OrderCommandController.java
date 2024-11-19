@@ -291,9 +291,12 @@ public class OrderCommandController {
             @Valid @RequestBody OrderRestModel orderRestModel) {
 
         String requestId = requestIdContext.getRequestId();
-        log.info("Received CreateOrder request with requestId: {} and details: {}", requestId, orderRestModel);
+        log.info("Received CreateOrder request with requestId: {} and details: {} using request /orders/order to orderservice", requestId, orderRestModel);
 
         String orderId = UUID.randomUUID().toString();
+
+        orderRestModel.setOrderId(orderId);
+        orderRestModel.setRequestId(requestId);
 
         if (orderRestModel.getQuantity() <= 0) {
             log.warn("Invalid quantity {} for productId {} in requestId: {}. Quantity must be greater than 0.",
@@ -316,8 +319,8 @@ public class OrderCommandController {
             log.info("Successfully sent CreateOrderCommand for Order ID: {} with request ID:{}", orderId, requestId);
 
             // Publish event to Kafka
-            String orderData = orderRestModel.toString();
-            orderKafkaProducer.sendOrderEvent("order-events", orderData);
+//            String orderData = orderRestModel.toString();
+            orderKafkaProducer.sendOrderEvent("order-events",orderId, orderRestModel);
             log.info("Order event successfully published to Kafka for Order ID: {} with requestID:{}", orderId, requestId);
 
             return ResponseEntity.ok("Order Created with ID: " + orderId);
@@ -336,7 +339,7 @@ public class OrderCommandController {
             @Valid @RequestBody OrderRestModel orderRestModel) {
 
         String requestId = requestIdContext.getRequestId();
-        log.debug("Received UpdateOrder request for Order ID: {} with requestId: {}", orderId, requestId);
+        log.debug("Received UpdateOrder request for Order ID: {} with requestId: {} using request /orders/order/{}", orderId, requestId,orderId);
 
         UpdateOrderCommand updateOrderCommand = UpdateOrderCommand.builder()
                 .orderId(orderId)
@@ -366,7 +369,7 @@ public class OrderCommandController {
             @PathVariable String orderId) {
 
         String requestId = requestIdContext.getRequestId();
-        log.debug("Received DeleteOrder request for Order ID: {} with requestId: {}", orderId, requestId);
+        log.debug("Received DeleteOrder request for Order ID: {} with requestId: {} using /orders/order/{}", orderId, requestId,orderId);
 
         try {
             UUID.fromString(orderId);

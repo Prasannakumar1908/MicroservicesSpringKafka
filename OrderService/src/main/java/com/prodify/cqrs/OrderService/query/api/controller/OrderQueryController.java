@@ -30,7 +30,7 @@ public class OrderQueryController {
     @GetMapping("/order/{orderId}")
     public ResponseEntity<OrderRestModel> getOrder(@PathVariable String orderId) {
         String requestId = requestIdContext.getRequestId();
-        log.info("Getting the order details with orderID:{} and Request ID: {}",orderId, requestId);
+        log.info("Getting the order details with orderID:{} and Request ID: {} using /orders/order/{}",orderId, requestId,orderId);
         try {
             OrderRestModel order = orderQueryHandler.getOrderById(orderId);
             if (order == null) {
@@ -47,7 +47,7 @@ public class OrderQueryController {
     @GetMapping("/orders")
     public ResponseEntity<List<OrderRestModel>> getAllOrders() {
         String requestId = requestIdContext.getRequestId();
-        log.info("Getting all orders in the database with requestID:{}", requestId);
+        log.info("Getting all orders in the database with requestID:{} using /orders/orders url through api ", requestId);
         try {
             List<OrderRestModel> orders = orderQueryHandler.getAllOrders();
             return ResponseEntity.ok(orders);

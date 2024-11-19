@@ -43,7 +43,7 @@ public class OrderProcessingSagaTest {
     @Test
     void testHandleOrderCreatedEvent() {
         OrderCreatedEvent event = new OrderCreatedEvent(
-                "orderId123", "productId456", "userId789", "addressId101", 2, "CREATED"
+                "orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"
         );
 
         User user = new User("userId789", "John Doe", "john@example.com",
@@ -62,10 +62,10 @@ public class OrderProcessingSagaTest {
 
     @Test
     void testHandleOrderCompletedEvent() {
-        OrderCompletedEvent event = new OrderCompletedEvent("orderId123", "APPROVED");
+        OrderCompletedEvent event = new OrderCompletedEvent("orderId123", "APPROVED","abc");
 
         fixture.givenAggregate(event.getOrderId())
-                .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED"))
+                .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"))
                 .whenPublishingA(event)
                 .expectActiveSagas(0)  ;// Saga should end after completion
 //                .expectDispatchedCommands(new CompleteOrderCommand(event.getOrderId(), event.getOrderStatus()));

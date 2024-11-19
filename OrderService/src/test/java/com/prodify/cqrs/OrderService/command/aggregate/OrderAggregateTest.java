@@ -26,7 +26,8 @@ class OrderAggregateTest {
                 "userId789",
                 "addressId101",
                 2,
-                "CREATED"
+                "CREATED",
+                "abc"
         );
 
         OrderCreatedEvent event = new OrderCreatedEvent(
@@ -35,7 +36,8 @@ class OrderAggregateTest {
                 command.getUserId(),
                 command.getAddressId(),
                 command.getQuantity(),
-                command.getOrderStatus()
+                command.getOrderStatus(),
+                command.getRequestId()
         );
 
         fixture.givenNoPriorActivity()
@@ -46,14 +48,15 @@ class OrderAggregateTest {
 
     @Test
     void testCompleteOrderCommand() {
-        CompleteOrderCommand command = new CompleteOrderCommand("orderId123", "APPROVED");
+        CompleteOrderCommand command = new CompleteOrderCommand("orderId123", "APPROVED","abc");
 
         OrderCompletedEvent event = new OrderCompletedEvent(
                 command.getOrderId(),
-                command.getOrderStatus()
+                command.getOrderStatus(),
+                command.getRequestId()
         );
 
-        fixture.givenCommands(new CreateOrderCommand("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED"))
+        fixture.givenCommands(new CreateOrderCommand("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"))
                 .when(command)
                 .expectSuccessfulHandlerExecution()
                 .expectEvents(event);

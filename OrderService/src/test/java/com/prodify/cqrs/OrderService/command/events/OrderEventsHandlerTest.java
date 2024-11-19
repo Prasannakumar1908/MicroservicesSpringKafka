@@ -30,7 +30,7 @@ class OrderEventsHandlerTest {
 
     @Test
     void testOnOrderCompletedEvent() {
-        OrderCompletedEvent event = new OrderCompletedEvent("orderId123", "APPROVED");
+        OrderCompletedEvent event = new OrderCompletedEvent("orderId123", "APPROVED","abc");
 
         Order order = new Order();
         order.setOrderId(event.getOrderId());
