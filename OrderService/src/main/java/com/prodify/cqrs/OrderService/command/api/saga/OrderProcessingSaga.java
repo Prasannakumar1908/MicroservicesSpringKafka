@@ -151,6 +151,7 @@ import com.prodify.cqrs.CommonService.events.*;
 import com.prodify.cqrs.CommonService.model.User;
 import com.prodify.cqrs.CommonService.queries.GetUserPaymentDetailsQuery;
 import com.prodify.cqrs.OrderService.command.api.events.OrderCreatedEvent;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
@@ -165,6 +166,7 @@ import java.util.UUID;
 
 @Saga
 @Slf4j
+@AllArgsConstructor
 public class OrderProcessingSaga {
 
     @Autowired
@@ -178,11 +180,11 @@ public class OrderProcessingSaga {
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
-    private void handle(OrderCreatedEvent event) {
+    public void handle(OrderCreatedEvent event) {
         log.info("Starting saga for OrderCreatedEvent with Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
 
         GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(event.getUserId());
-        User user;
+        User user=null;
 
         try {
             user = queryGateway.query(getUserPaymentDetailsQuery, ResponseTypes.instanceOf(User.class)).join();
@@ -224,7 +226,7 @@ public class OrderProcessingSaga {
         });
     }
     @SagaEventHandler(associationProperty = "orderId")
-    private void handle(PaymentProcessedEvent event) {
+    public void handle(PaymentProcessedEvent event) {
         log.info("PaymentProcessedEvent in Saga for Order Id : {}", event.getOrderId());
         try {
             ShipOrderCommand shipOrderCommand = ShipOrderCommand.builder()

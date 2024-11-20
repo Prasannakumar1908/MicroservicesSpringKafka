@@ -1,7 +1,7 @@
 package com.prodify.cqrs.OrderService.command.saga;
 
-import com.prodify.cqrs.CommonService.commands.CompleteOrderCommand;
-import com.prodify.cqrs.CommonService.events.OrderCompletedEvent;
+import com.prodify.cqrs.CommonService.commands.*;
+import com.prodify.cqrs.CommonService.events.*;
 import com.prodify.cqrs.OrderService.command.api.events.OrderCreatedEvent;
 import com.prodify.cqrs.OrderService.command.api.saga.OrderProcessingSaga;
 import com.prodify.cqrs.CommonService.model.CardDetails;
@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.Mockito.*;
@@ -43,7 +44,7 @@ public class OrderProcessingSagaTest {
     @Test
     void testHandleOrderCreatedEvent() {
         OrderCreatedEvent event = new OrderCreatedEvent(
-                "orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"
+                "orderId123", "productId456", "userId789", "addressId101", 2, "CREATED", "abc"
         );
 
         User user = new User("userId789", "John Doe", "john@example.com",
@@ -56,9 +57,11 @@ public class OrderProcessingSagaTest {
         fixture.givenNoPriorActivity()
                 .whenAggregate(event.getOrderId())
                 .publishes(event)
-                .expectActiveSagas(1);
-//                .expectDispatchedCommands();  // Adjust this if commands should be expected
+                .expectActiveSagas(1)
+                // Make sure the dispatched command matches the expected one.
+                .expectDispatchedCommands(ValidatePaymentCommand.class);  // Expect ValidatePaymentCommand to be sent
     }
+
 
     @Test
     void testHandleOrderCompletedEvent() {
@@ -67,8 +70,51 @@ public class OrderProcessingSagaTest {
         fixture.givenAggregate(event.getOrderId())
                 .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"))
                 .whenPublishingA(event)
-                .expectActiveSagas(0)  ;// Saga should end after completion
-//                .expectDispatchedCommands(new CompleteOrderCommand(event.getOrderId(), event.getOrderStatus()));
+                .expectActiveSagas(0)  // Saga should end after completion
+                .expectDispatchedCommands(CompleteOrderCommand.class);  // Expect CompleteOrderCommand to be sent
     }
 
+    @Test
+    void testHandlePaymentProcessedEvent() {
+        PaymentProcessedEvent event = new PaymentProcessedEvent("orderId123", "paymentId456");
+
+        fixture.givenAggregate("orderId123")
+                .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"))
+                .whenPublishingA(event)
+                .expectActiveSagas(1)  // Saga should still be active
+                .expectDispatchedCommands(ShipOrderCommand.class);  // Expect ShipOrderCommand to be sent
+    }
+
+    @Test
+    void testHandleOrderShippedEvent() {
+        OrderShippedEvent event = new OrderShippedEvent("shipmentId789", "orderId123", "SHIPPED");
+
+        fixture.givenAggregate("orderId123")
+                .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CREATED","abc"))
+                .whenPublishingA(event)
+                .expectActiveSagas(0)  // Saga should end after completion
+                .expectDispatchedCommands(CompleteOrderCommand.class);  // Expect CompleteOrderCommand to be sent
+    }
+
+    @Test
+    void testHandlePaymentCancelledEvent() {
+        PaymentCancelledEvent event = new PaymentCancelledEvent("orderId123", "paymentId456","CANCELLED");
+
+        fixture.givenAggregate("orderId123")
+                .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CANCELLED","abc"))
+                .whenPublishingA(event)
+                .expectActiveSagas(1)  // Saga should still be active
+                .expectDispatchedCommands(CancelOrderCommand.class);  // Expect CancelOrderCommand to be sent
+    }
+
+    @Test
+    void testHandleOrderCancelledEvent() {
+        OrderCancelledEvent event = new OrderCancelledEvent("orderId123","CANCELLED");
+
+        fixture.givenAggregate("orderId123")
+                .published(new OrderCreatedEvent("orderId123", "productId456", "userId789", "addressId101", 2, "CANCELLED","abc"))
+                .whenPublishingA(event)
+                .expectActiveSagas(0)  // Saga should end after completion
+                .expectDispatchedCommands();  // No command is expected after cancellation
+    }
 }

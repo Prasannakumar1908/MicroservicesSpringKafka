@@ -180,6 +180,7 @@ public class OrderAggregate {
             OrderCompletedEvent orderCompletedEvent = OrderCompletedEvent.builder()
                     .orderStatus(completeOrderCommand.getOrderStatus())
                     .orderId(completeOrderCommand.getOrderId())
+                    .requestId(completeOrderCommand.getRequestId())
                     .build();
             AggregateLifecycle.apply(orderCompletedEvent);
         } catch (IllegalArgumentException e) {
@@ -195,6 +196,7 @@ public class OrderAggregate {
     public void on(OrderCompletedEvent event) {
         log.info("Event sourcing OrderCompletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.orderStatus = event.getOrderStatus();
+        this.requestId = event.getRequestId();
     }
 
     @CommandHandler

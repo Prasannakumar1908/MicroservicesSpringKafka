@@ -291,12 +291,14 @@ public class OrderCommandController {
             @Valid @RequestBody OrderRestModel orderRestModel) {
 
         String requestId = requestIdContext.getRequestId();
-        log.info("Received CreateOrder request with requestId: {} and details: {} using request /orders/order to orderservice", requestId, orderRestModel);
-
         String orderId = UUID.randomUUID().toString();
 
         orderRestModel.setOrderId(orderId);
         orderRestModel.setRequestId(requestId);
+
+        log.info("Received CreateOrder request with requestId: {} and details: {} using request /orders/order to orderservice", requestId, orderRestModel);
+
+
 
         if (orderRestModel.getQuantity() <= 0) {
             log.warn("Invalid quantity {} for productId {} in requestId: {}. Quantity must be greater than 0.",

@@ -3,6 +3,7 @@ package com.prodify.cqrs.UserService.controller;
 //import com.prodify.cqrs.CommonService.commands.CreateUserCommand;
 import com.prodify.cqrs.CommonService.model.User;
 import com.prodify.cqrs.CommonService.queries.GetUserPaymentDetailsQuery;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -20,13 +21,13 @@ import java.util.concurrent.CompletionException;
 
 @RestController
 @RequestMapping("/users")
-
+@Slf4j
 public class UserController {
 
 //    private final CommandGateway commandGateway;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private final QueryGateway queryGateway;
+    private transient QueryGateway queryGateway;
 
     public UserController( QueryGateway queryGateway) {
 //        this.commandGateway = commandGateway;
@@ -53,26 +54,26 @@ public class UserController {
 //
 //        return user;
 //    }
-    @GetMapping("{userId}")
-    public ResponseEntity<?> getUserPaymentDetails(@PathVariable String userId) {
-        try {
-            logger.info("Received request for payment details of user: {}", userId);
+        @GetMapping("{userId}")
+        public User getUserPaymentDetails(@PathVariable String userId) {
+            log.info("Received request to fetch payment details for userId: {}", userId);
 
             GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(userId);
-            User user = queryGateway.query(getUserPaymentDetailsQuery, ResponseTypes.instanceOf(User.class)).join();
 
-            logger.info("Successfully retrieved payment details for user: {}", userId);
-            return ResponseEntity.ok(user);
-        } catch (CompletionException ex) {
-            logger.error("Error retrieving payment details for user {}: {}", userId, ex.getCause().getMessage(), ex);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error retrieving user payment details: " + ex.getCause().getMessage());
-        } catch (Exception ex) {
-            logger.error("Unexpected error for user {}: {}", userId, ex.getMessage(), ex);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An unexpected error occurred: " + ex.getMessage());
+            try {
+                log.info("Querying for user payment details with userId: {}", userId);
+                User user = queryGateway.query(getUserPaymentDetailsQuery, ResponseTypes.instanceOf(User.class)).join();
+                if (user != null) {
+                    log.info("Successfully fetched payment details for userId: {}", userId);
+                } else {
+                    log.warn("No user found with userId: {}", userId);
+                }
+                return user;
+            } catch (Exception e) {
+                log.error("Error occurred while fetching payment details for userId: {}", userId, e);
+                throw new RuntimeException("Error fetching user payment details", e);  // You can customize this error handling based on your needs
+            }
         }
-    }
 
 
 }
