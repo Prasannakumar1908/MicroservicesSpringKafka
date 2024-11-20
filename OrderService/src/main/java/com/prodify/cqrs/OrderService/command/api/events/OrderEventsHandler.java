@@ -79,7 +79,7 @@ public class OrderEventsHandler {
 
     @EventHandler
     public void on(OrderCreatedEvent event) {
-        log.info("Handling OrderCreatedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Received OrderCreatedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
         Order order = new Order();
         BeanUtils.copyProperties(event, order);
 
@@ -88,12 +88,14 @@ public class OrderEventsHandler {
             log.info("Order saved in database for Order ID: {} with requestId:{}", order.getOrderId(),event.getRequestId());
         } catch (DataAccessException e) {
             log.error("Error saving order in database for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId(), e);
+        }catch (Exception e) {
+            log.error("Unexpected error while handling OrderCreatedEvent for Order ID: {} with requestId: {}", event.getOrderId(), event.getRequestId(), e);
         }
     }
 
     @EventHandler
     public void on(OrderCompletedEvent event) {
-        log.info("Handling OrderCompletedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Received OrderCompletedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
 
         try {
             Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
@@ -107,12 +109,14 @@ public class OrderEventsHandler {
             }
         } catch (DataAccessException e) {
             log.error("Error updating order status to COMPLETED for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId(), e);
+        }catch (Exception e) {
+            log.error("Unexpected error while handling OrderCompletedEvent for Order ID: {} with requestId: {}", event.getOrderId(), event.getRequestId(), e);
         }
     }
 
     @EventHandler
     public void on(OrderCancelledEvent event) {
-        log.info("Handling OrderCancelledEvent for Order ID: {} ", event.getOrderId());
+        log.debug("Received OrderCancelledEvent for Order ID: {} ", event.getOrderId());
 
         try {
             Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
@@ -130,29 +134,41 @@ public class OrderEventsHandler {
     }
     @EventHandler
     public void on(OrderUpdatedEvent event) {
-        log.info("Handling OrderUpdatedEvent for Order ID: {} ", event.getOrderId());
+        log.debug("Received OrderUpdatedEvent for Order ID: {} ", event.getOrderId());
 
-        Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
-        if (orderOptional.isPresent()) {
-            Order order = orderOptional.get();
-            order.setProductId(event.getProductId());
-            order.setQuantity(event.getQuantity());
-            order.setOrderStatus(event.getOrderStatus());
-            order.setUserId(event.getUserId());
-            order.setAddressId(event.getAddressId());
-            orderRepository.save(order);
-            log.info("Order updated in database for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
-        } else {
-            log.warn("Order not found in database for OrderUpdatedEvent. Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
+        try {
+            Optional<Order> orderOptional = orderRepository.findById(event.getOrderId());
+            if (orderOptional.isPresent()) {
+                Order order = orderOptional.get();
+                order.setProductId(event.getProductId());
+                order.setQuantity(event.getQuantity());
+                order.setOrderStatus(event.getOrderStatus());
+                order.setUserId(event.getUserId());
+                order.setAddressId(event.getAddressId());
+                orderRepository.save(order);
+                log.info("Order updated in database for Order ID: {} with requestId:{}", event.getOrderId(), event.getRequestId());
+            } else {
+                log.warn("Order not found in database for OrderUpdatedEvent. Order ID: {} with requestId:{}", event.getOrderId(), event.getRequestId());
+            }
+        }catch (DataAccessException e) {
+            log.error("Error updating order details for Order ID: {} with requestId: {}", event.getOrderId(), event.getRequestId(), e);
+        } catch (Exception e) {
+            log.error("Unexpected error while handling OrderUpdatedEvent for Order ID: {} with requestId: {}", event.getOrderId(), event.getRequestId(), e);
         }
     }
 
     @EventHandler
     public void on(OrderDeletedEvent event) {
-        log.info("Handling OrderDeletedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Received OrderDeletedEvent for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
 
-        orderRepository.deleteById(event.getOrderId());
-        log.info("Order deleted from database for Order ID: {} with requestId:{}", event.getOrderId(),event.getRequestId());
+        try {
+            orderRepository.deleteById(event.getOrderId());
+            log.info("Order deleted from database for Order ID: {} with requestId:{}", event.getOrderId(), event.getRequestId());
+        }catch (DataAccessException e) {
+            log.error("Error deleting order from database for Order ID: {} with requestId: {}", event.getOrderId(), event.getRequestId(), e);
+        } catch (Exception e) {
+            log.error("Unexpected error while handling OrderDeletedEvent for Order ID: {} with requestId: {}", event.getOrderId(), event.getRequestId(), e);
+        }
     }
 
 }

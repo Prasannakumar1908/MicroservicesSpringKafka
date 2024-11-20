@@ -5,48 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/service/UserDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/util/JwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/exception/OrderNotFoundException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/prodify/cqrs/authservice/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/events/OrderCancelledEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/events/OrderCancelledEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/events/OrderShippedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/events/OrderShippedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/events/PaymentProcessedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/events/PaymentProcessedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/queries/GetUserPaymentDetailsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/CommonService/src/main/java/com/prodify/cqrs/CommonService/queries/GetUserPaymentDetailsQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/command/DeleteOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/command/DeleteOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/controller/OrderQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handler/OrderQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handler/OrderQueryHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handlers/OrderQueryHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/test/java/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/events/OrderEventsHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/classes/com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.OrderServiceApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.OrderServiceApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/TEST-com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.OrderServiceApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.OrderServiceApplicationTests.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.aggregate.OrderAggregateTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.events.OrderEventsHandlerTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.kafka.OrderKafkaProducerTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/surefire-reports/com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/aggregate/OrderAggregateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/events/OrderEventsHandlerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/kafka/OrderKafkaProducerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/target/test-classes/com/prodify/cqrs/OrderService/command/saga/OrderProcessingSagaTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/src/main/java/com/prodify/cqrs/UserService/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/UserService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/apigateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/apigateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/apigateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/apigateway/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +88,7 @@
     "JUnit.OrderProcessingSagaTest.executor": "Run",
     "JUnit.OrderProcessingSagaTest.testHandleOrderCompletedEvent.executor": "Run",
     "JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent.executor": "Run",
+    "JUnit.OrderProcessingSagaTest.testHandleOrderShippedEvent.executor": "Run",
     "JUnit.OrderServiceApplicationTests.executor": "Run",
     "JUnit.ProductCommandControllerTest.executor": "Run",
     "JUnit.ProductEventsHandlerTest.executor": "Run",
@@ -185,7 +169,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OrderProcessingSagaTest">
+  <component name="RunManager" selected="JUnit.OrderServiceApplicationTests">
     <configuration name="OrderAggregateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OrderService" />
       <extension name="coverage">
@@ -246,18 +230,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderProcessingSagaTest.testHandleOrderCreatedEvent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderServiceApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OrderService" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.prodify.cqrs.OrderService.command.saga.*" />
+          <option name="PATTERN" value="com.prodify.cqrs.OrderService.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService.command.saga" />
-      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.command.saga.OrderProcessingSagaTest" />
-      <option name="METHOD_NAME" value="testHandleOrderCreatedEvent" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.prodify.cqrs.OrderService" />
+      <option name="MAIN_CLASS_NAME" value="com.prodify.cqrs.OrderService.OrderServiceApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -514,7 +497,7 @@
     <list>
       <item itemvalue="JUnit.OrderEventsHandlerTest" />
       <item itemvalue="JUnit.OrderKafkaProducerTest" />
-      <item itemvalue="JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent" />
+      <item itemvalue="JUnit.OrderServiceApplicationTests" />
       <item itemvalue="JUnit.OrderAggregateTest" />
       <item itemvalue="JUnit.OrderProcessingSagaTest" />
       <item itemvalue="Maven.apigateway [clean,compile,install]" />
@@ -533,11 +516,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OrderServiceApplicationTests" />
         <item itemvalue="JUnit.OrderProcessingSagaTest" />
         <item itemvalue="JUnit.OrderKafkaProducerTest" />
         <item itemvalue="JUnit.OrderEventsHandlerTest" />
         <item itemvalue="JUnit.OrderAggregateTest" />
-        <item itemvalue="JUnit.OrderProcessingSagaTest.testHandleOrderCreatedEvent" />
       </list>
     </recent_temporary>
   </component>
@@ -575,7 +558,7 @@
       <workItem from="1731575566518" duration="61000" />
       <workItem from="1731575649035" duration="47474000" />
       <workItem from="1731914713303" duration="30000" />
-      <workItem from="1731914776770" duration="58779000" />
+      <workItem from="1731914776770" duration="74657000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />

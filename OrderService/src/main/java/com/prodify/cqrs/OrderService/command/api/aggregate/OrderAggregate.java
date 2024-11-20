@@ -136,8 +136,9 @@ public class OrderAggregate {
     @CommandHandler
     public OrderAggregate(CreateOrderCommand createOrderCommand) {
         try {
+            log.debug("Received CreateOrderCommand for Order Id:{} with request Id:{}",createOrderCommand.getOrderId(),createOrderCommand.getRequestId());
             validateCreateOrderCommand(createOrderCommand);
-            log.info("Handling CreateOrderCommand for Order Id:{} with requestId:{} ", createOrderCommand.getOrderId(),createOrderCommand.getRequestId());
+            log.info("Validating CreateOrderCommand for Order Id:{} with requestId:{} ", createOrderCommand.getOrderId(),createOrderCommand.getRequestId());
             OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent(
                     createOrderCommand.getOrderId(),
                     createOrderCommand.getProductId(),
@@ -161,7 +162,7 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCreatedEvent event) {
-        log.info("Event sourcing OrderCreatedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Event sourcing OrderCreatedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.orderStatus = event.getOrderStatus();
         this.userId = event.getUserId();
         this.orderId = event.getOrderId();
@@ -175,14 +176,16 @@ public class OrderAggregate {
     @CommandHandler
     public void handle(CompleteOrderCommand completeOrderCommand) {
         try {
+            log.debug("Received CompleteOrderCommand for OrderId:{} with requestId:{}",completeOrderCommand.getOrderId(),completeOrderCommand.getRequestId());
             validateCompleteOrderCommand(completeOrderCommand);
-            log.info("Handling CompleteOrderCommand for Order Id:{} with requestId:{}", completeOrderCommand.getOrderId(),completeOrderCommand.getRequestId());
+            log.info("Validating CompleteOrderCommand for Order Id:{} with requestId:{}", completeOrderCommand.getOrderId(),completeOrderCommand.getRequestId());
             OrderCompletedEvent orderCompletedEvent = OrderCompletedEvent.builder()
                     .orderStatus(completeOrderCommand.getOrderStatus())
                     .orderId(completeOrderCommand.getOrderId())
                     .requestId(completeOrderCommand.getRequestId())
                     .build();
             AggregateLifecycle.apply(orderCompletedEvent);
+            log.info("Applied OrderCompletedEvent for OrderId:{} with requestId:{}", orderCompletedEvent.getOrderId(),orderCompletedEvent.getRequestId());
         } catch (IllegalArgumentException e) {
             log.error("CompleteOrderCommand validation failed: {} with requestId:{}", e.getMessage(),completeOrderCommand.getRequestId());
             throw e;
@@ -194,7 +197,7 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCompletedEvent event) {
-        log.info("Event sourcing OrderCompletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Event sourcing OrderCompletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.orderStatus = event.getOrderStatus();
         this.requestId = event.getRequestId();
     }
@@ -202,11 +205,13 @@ public class OrderAggregate {
     @CommandHandler
     public void handle(CancelOrderCommand cancelOrderCommand) {
         try {
+            log.debug("Received CancelOrdercommand for OrderId:{}",cancelOrderCommand.getOrderId());
             validateCancelOrderCommand(cancelOrderCommand);
             log.info("Handling CancelOrderCommand for Order Id:{}", cancelOrderCommand.getOrderId());
             OrderCancelledEvent orderCancelledEvent = new OrderCancelledEvent();
             BeanUtils.copyProperties(cancelOrderCommand, orderCancelledEvent);
             AggregateLifecycle.apply(orderCancelledEvent);
+            log.info("Applied OrderCancelledEvent for OrderId:{]",cancelOrderCommand.getOrderId());
         } catch (IllegalArgumentException e) {
             log.error("CancelOrderCommand validation failed: {}", e.getMessage());
             throw e;
@@ -218,56 +223,40 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCancelledEvent event) {
-        log.info("Event sourcing OrderCancelledEvent for Order Id:{}", event.getOrderId());
+        log.debug("Event sourcing OrderCancelledEvent for Order Id:{}", event.getOrderId());
         this.orderStatus = event.getOrderStatus();
     }
 
-    private void validateCreateOrderCommand(CreateOrderCommand command) {
-        if (command == null || !StringUtils.hasText(command.getOrderId())) {
-            throw new IllegalArgumentException("Order ID cannot be null or empty in CreateOrderCommand");
-        }
-        if (!StringUtils.hasText(command.getProductId()) || !StringUtils.hasText(command.getUserId())) {
-            throw new IllegalArgumentException("Product ID and User ID cannot be null or empty in CreateOrderCommand");
-        }
-        if (command.getQuantity() == null || command.getQuantity() <= 0) {
-            throw new IllegalArgumentException("Quantity must be greater than zero in CreateOrderCommand");
-        }
-    }
 
-    private void validateCompleteOrderCommand(CompleteOrderCommand command) {
-        if (command == null || !StringUtils.hasText(command.getOrderId())) {
-            throw new IllegalArgumentException("Order ID cannot be null or empty in CompleteOrderCommand");
-        }
-        if (!StringUtils.hasText(command.getOrderStatus())) {
-            throw new IllegalArgumentException("Order Status cannot be null or empty in CompleteOrderCommand");
-        }
-    }
-
-    private void validateCancelOrderCommand(CancelOrderCommand command) {
-        if (command == null || !StringUtils.hasText(command.getOrderId())) {
-            throw new IllegalArgumentException("Order ID cannot be null or empty in CancelOrderCommand");
-        }
-    }
     @CommandHandler
     public void handle(UpdateOrderCommand updateOrderCommand) {
-        log.info("Handling UpdateOrderCommand for Order Id:{} with requestId:{}", updateOrderCommand.getOrderId(),updateOrderCommand.getRequestId());
+        try {
+            log.debug("Received UpdateOrderCommand for Order Id:{} with requestId:{}", updateOrderCommand.getOrderId(), updateOrderCommand.getRequestId());
+            log.info("Handling UpdateOrderCommand for Order Id:{} with requestId:{}", updateOrderCommand.getOrderId(), updateOrderCommand.getRequestId());
 
-        OrderUpdatedEvent orderUpdatedEvent = new OrderUpdatedEvent(
-                updateOrderCommand.getOrderId(),
-                updateOrderCommand.getProductId(),
-                updateOrderCommand.getQuantity(),
-                updateOrderCommand.getOrderStatus(),
-                updateOrderCommand.getUserId(),
-                updateOrderCommand.getAddressId(),
-                updateOrderCommand.getRequestId()
-        );
 
-        AggregateLifecycle.apply(orderUpdatedEvent);
+            OrderUpdatedEvent orderUpdatedEvent = new OrderUpdatedEvent(
+                    updateOrderCommand.getOrderId(),
+                    updateOrderCommand.getProductId(),
+                    updateOrderCommand.getQuantity(),
+                    updateOrderCommand.getOrderStatus(),
+                    updateOrderCommand.getUserId(),
+                    updateOrderCommand.getAddressId(),
+                    updateOrderCommand.getRequestId()
+            );
+
+            AggregateLifecycle.apply(orderUpdatedEvent);
+            log.info("Applied OrderUpdatedEvent for OrderId:{} with requestId:{}", updateOrderCommand.getOrderId(), updateOrderCommand.getRequestId());
+        } catch (Exception e) {
+            log.error("Unexpected error occurred while handling UpdateOrderCommand: {}", e.getMessage());
+            throw new RuntimeException("Failed to update order",e);
+        }
+
     }
 
     @EventSourcingHandler
     public void on(OrderUpdatedEvent event) {
-        log.info("Event sourcing OrderUpdatedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Event sourcing OrderUpdatedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         this.productId = event.getProductId();
         this.quantity = event.getQuantity();
         this.orderStatus = event.getOrderStatus();
@@ -277,16 +266,59 @@ public class OrderAggregate {
 
     @CommandHandler
     public void handle(DeleteOrderCommand deleteOrderCommand) {
-        log.info("Handling DeleteOrderCommand for Order Id:{} with requestId:{}", deleteOrderCommand.getOrderId(),deleteOrderCommand.getRequestId());
+        try {
+            log.debug("Handling DeleteOrderCommand for Order Id:{} with requestId:{}", deleteOrderCommand.getOrderId(), deleteOrderCommand.getRequestId());
 
-        OrderDeletedEvent orderDeletedEvent = new OrderDeletedEvent(deleteOrderCommand.getOrderId(),deleteOrderCommand.getRequestId());
-        AggregateLifecycle.apply(orderDeletedEvent);
+            OrderDeletedEvent orderDeletedEvent = new OrderDeletedEvent(deleteOrderCommand.getOrderId(), deleteOrderCommand.getRequestId());
+            AggregateLifecycle.apply(orderDeletedEvent);
+            log.info("Applied OrderDeletedEvent for Order Id:{} with requestId:{}",deleteOrderCommand.getOrderId(), deleteOrderCommand.getRequestId());
+        } catch (Exception e) {
+            log.error("Unexpected error occurred while handling DeleteOrderCommand: {}", e.getMessage());
+            throw new RuntimeException("Failed to delete order",e);
+        }
+
     }
 
     @EventSourcingHandler
     public void on(OrderDeletedEvent event) {
-        log.info("Event sourcing OrderDeletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
+        log.debug("Event sourcing OrderDeletedEvent for Order Id:{} with requestId:{}", event.getOrderId(),event.getRequestId());
         AggregateLifecycle.markDeleted();
+    }
+
+    private void validateCreateOrderCommand(CreateOrderCommand command) {
+        log.debug("Validating CreateorderCommand for Order Id:{}",command.getOrderId());
+        if (command == null || !StringUtils.hasText(command.getOrderId())) {
+            log.warn("Order ID is missing in CreateOrderCommand");
+            throw new IllegalArgumentException("Order ID cannot be null or empty in CreateOrderCommand");
+        }
+        if (!StringUtils.hasText(command.getProductId()) || !StringUtils.hasText(command.getUserId())) {
+            log.warn("Product ID or User ID is missing in CreateOrderCommand");
+            throw new IllegalArgumentException("Product ID and User ID cannot be null or empty in CreateOrderCommand");
+        }
+        if (command.getQuantity() == null || command.getQuantity() <= 0) {
+            log.warn("Invalid quantity in CreateOrderCommand");
+            throw new IllegalArgumentException("Quantity must be greater than zero in CreateOrderCommand");
+        }
+    }
+
+    private void validateCompleteOrderCommand(CompleteOrderCommand command) {
+        log.debug("Validating CompleteOrderCommand for Order Id:{}",command.getOrderId());
+        if (command == null || !StringUtils.hasText(command.getOrderId())) {
+            log.warn("Order ID is missing in CompleteOrderCommand");
+            throw new IllegalArgumentException("Order ID cannot be null or empty in CompleteOrderCommand");
+        }
+        if (!StringUtils.hasText(command.getOrderStatus())) {
+            log.warn("Order status is missing in CompleteOrderCommand");
+            throw new IllegalArgumentException("Order Status cannot be null or empty in CompleteOrderCommand");
+        }
+    }
+
+    private void validateCancelOrderCommand(CancelOrderCommand command) {
+        log.debug("Validating CancelOrderCommand for Order Id:{}",command.getOrderId());
+        if (command == null || !StringUtils.hasText(command.getOrderId())) {
+            log.warn("Order ID is missing in CancelOrderCommand");
+            throw new IllegalArgumentException("Order ID cannot be null or empty in CancelOrderCommand");
+        }
     }
 
 }

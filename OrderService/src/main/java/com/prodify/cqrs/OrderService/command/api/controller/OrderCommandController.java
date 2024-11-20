@@ -296,7 +296,7 @@ public class OrderCommandController {
         orderRestModel.setOrderId(orderId);
         orderRestModel.setRequestId(requestId);
 
-        log.info("Received CreateOrder request with requestId: {} and details: {} using request /orders/order to orderservice", requestId, orderRestModel);
+        log.debug("Received CreateOrder request with requestId: {} and details: {} using request /orders/order to orderservice", requestId, orderRestModel);
 
 
 
@@ -317,6 +317,7 @@ public class OrderCommandController {
                 .build();
 
         try {
+            log.debug("Sending CreateOrderCommand to command gateway for Order ID:{} with request Id:{}",orderId,requestId);
             commandGateway.sendAndWait(createOrderCommand);
             log.info("Successfully sent CreateOrderCommand for Order ID: {} with request ID:{}", orderId, requestId);
 
@@ -328,9 +329,13 @@ public class OrderCommandController {
             return ResponseEntity.ok("Order Created with ID: " + orderId);
 
         } catch (CommandExecutionException e) {
-            log.error("Failed to execute CreateOrderCommand for Order ID: {}", orderId, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            log.error("Failed to execute CreateOrderCommand for Order ID: {} with requestId:{}", orderId,requestId, e);
+            return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Error creating order. Please try again later.");
+        }catch (Exception e) {
+            log.error("Unexpected error occurred while creating order with requestId: {}", requestId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unexpected error occurred. Please try again later.");
         }
     }
 
@@ -342,7 +347,11 @@ public class OrderCommandController {
 
         String requestId = requestIdContext.getRequestId();
         log.debug("Received UpdateOrder request for Order ID: {} with requestId: {} using request /orders/order/{}", orderId, requestId,orderId);
-
+        if(orderRestModel.getQuantity() <= 0) {
+            log.warn("Invalid quantity:{} for productId:{} in Updateorder request with requestId:{}, Quantity must be greater than 0.",orderRestModel.getQuantity(), orderRestModel.getProductId(), requestId
+            );
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid quantity. Must be greater than 0.");
+        }
         UpdateOrderCommand updateOrderCommand = UpdateOrderCommand.builder()
                 .orderId(orderId)
                 .userId(orderRestModel.getUserId())
@@ -352,16 +361,20 @@ public class OrderCommandController {
                 .orderStatus("UPDATED")
                 .requestId(requestId)
                 .build();
-
         try {
+            log.debug("Sending UpdateOrderCommand to command gateway for Order ID: {} with requestID: {}",orderId,requestId);
             commandGateway.sendAndWait(updateOrderCommand);
             log.info("Successfully sent UpdateOrderCommand for Order ID: {}", orderId);
             return ResponseEntity.ok("Order Updated with ID: " + orderId);
 
         } catch (CommandExecutionException e) {
-            log.error("Failed to execute UpdateOrderCommand for Order ID: {}", orderId, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            log.error("Failed to execute UpdateOrderCommand for Order ID: {} with requestId:{}", orderId,requestId, e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Error updating order. Please try again later.");
+        }catch (Exception e) {
+            log.error("Unexpected error occurred while updating order with requestId: {}", requestId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unexpected error occurred. Please try again later.");
         }
     }
 
@@ -386,14 +399,19 @@ public class OrderCommandController {
                 .build();
 
         try {
+            log.debug("Sending DeleteOrderCommand to command gateway for Order ID: {} with requestId:{}", orderId,requestId);
             commandGateway.sendAndWait(deleteOrderCommand);
             log.info("Successfully sent DeleteOrderCommand for Order ID: {}", orderId);
             return ResponseEntity.ok("Order Deleted with ID: " + orderId);
 
         } catch (CommandExecutionException e) {
-            log.error("Failed to execute DeleteOrderCommand for Order ID: {}", orderId, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            log.error("Failed to execute DeleteOrderCommand for Order ID: {} with requestId:{}", orderId,requestId, e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Error deleting order. Please try again later.");
+        }catch (Exception e) {
+            log.error("Unexpected error occurred while deleting order with requestId: {}", requestId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unexpected error occurred. Please try again later.");
         }
     }
 }

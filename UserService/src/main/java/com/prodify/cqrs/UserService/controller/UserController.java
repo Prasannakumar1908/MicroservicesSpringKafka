@@ -7,10 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
+import org.axonframework.queryhandling.QueryHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 //import org.axonframework.queryhandling.responsetypes.ResponseTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,36 +46,36 @@ public class UserController {
 //    }
 
 
-//    @GetMapping("{userId}")
-//    public User getUserPaymentDetails(@PathVariable String userId){
-//        GetUserPaymentDetailsQuery getUserPaymentDetailsQuery
-//                = new GetUserPaymentDetailsQuery(userId);
-//        User user =
-//                queryGateway.query(getUserPaymentDetailsQuery,
-//                        ResponseTypes.instanceOf(User.class)).join();
+    @GetMapping("{userId}")
+    public User getUserPaymentDetails(@PathVariable String userId){
+        GetUserPaymentDetailsQuery getUserPaymentDetailsQuery
+                = new GetUserPaymentDetailsQuery(userId);
+        User user =
+                queryGateway.query(getUserPaymentDetailsQuery,
+                        ResponseTypes.instanceOf(User.class)).join();
+
+        return user;
+    }
+//        @GetMapping("{userId}")
+//        public User getUserPaymentDetails(@PathVariable String userId) {
+//            log.info("Received request to fetch payment details for userId: {}", userId);
 //
-//        return user;
-//    }
-        @GetMapping("{userId}")
-        public User getUserPaymentDetails(@PathVariable String userId) {
-            log.info("Received request to fetch payment details for userId: {}", userId);
-
-            GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(userId);
-
-            try {
-                log.info("Querying for user payment details with userId: {}", userId);
-                User user = queryGateway.query(getUserPaymentDetailsQuery, ResponseTypes.instanceOf(User.class)).join();
-                if (user != null) {
-                    log.info("Successfully fetched payment details for userId: {}", userId);
-                } else {
-                    log.warn("No user found with userId: {}", userId);
-                }
-                return user;
-            } catch (Exception e) {
-                log.error("Error occurred while fetching payment details for userId: {}", userId, e);
-                throw new RuntimeException("Error fetching user payment details", e);  // You can customize this error handling based on your needs
-            }
-        }
+//            GetUserPaymentDetailsQuery getUserPaymentDetailsQuery = new GetUserPaymentDetailsQuery(userId);
+//
+//            try {
+//                log.info("Querying for user payment details with userId: {}", userId);
+//                User user = queryGateway.query(getUserPaymentDetailsQuery, ResponseTypes.instanceOf(User.class)).join();
+//                if (user != null) {
+//                    log.info("Successfully fetched payment details for userId: {}", userId);
+//                } else {
+//                    log.warn("No user found with userId: {}", userId);
+//                }
+//                return user;
+//            } catch (Exception e) {
+//                log.error("Error occurred while fetching payment details for userId: {}", userId, e);
+//                throw new RuntimeException("Error fetching user payment details", e);  // You can customize this error handling based on your needs
+//            }
+//        }
 
 
 }
