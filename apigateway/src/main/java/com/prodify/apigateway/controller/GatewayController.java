@@ -15,8 +15,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -64,19 +68,20 @@ public class GatewayController {
         return requestIdContext.getRequestId()
                 .flatMap(requestId -> {
                     String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order").build();
-                    log.info("[RequestId: {}] Creating order with URI:{} and productId:{}", requestId, uri, orderRestModel.getProductId());
+                    String customrequestId = requestId+"_productId_"+orderRestModel.getProductId();
+                    log.info("[RequestId: {}] Creating order with URI:{} and productId:{}", customrequestId, uri, orderRestModel.getProductId());
 
                     // Make the actual request to the downstream service
                     return webClient.post()
                             .uri(uri)
-                            .header("X-Request-Id", requestId)
+                            .header("X-Request-Id", customrequestId)
                             .bodyValue(orderRestModel)
                             .retrieve()
                             .onStatus(
                                     status -> status.is4xxClientError(),  // Handle client-side errors
                                     response -> response.bodyToMono(String.class)
                                             .flatMap(errorBody -> {
-                                                log.error("[RequestId: {}] Client error response from downstream service: {}", requestId, errorBody);
+                                                log.error("[RequestId: {}] Client error response from downstream service: {}", customrequestId, errorBody);
                                                 return Mono.error(new BadRequestException("Client error: " + errorBody));  // Use a specific exception
                                             })
                             )
@@ -84,13 +89,13 @@ public class GatewayController {
                                     status -> status.is5xxServerError(),  // Handle server-side errors
                                     response -> response.bodyToMono(String.class)
                                             .flatMap(errorBody -> {
-                                                log.error("[RequestId: {}] Server error response from downstream service: {}", requestId, errorBody);
+                                                log.error("[RequestId: {}] Server error response from downstream service: {}", customrequestId, errorBody);
                                                 return Mono.error(new RuntimeException("Server error: " + errorBody));  // Use a specific exception for server error
                                             })
                             )
                             .bodyToMono(String.class)
-                            .doOnSuccess(response -> log.info("[RequestId: {}] Successfully created order ", requestId))
-                            .doOnError(e -> log.error("[RequestId: {}] Error creating order: {}", requestId, e.getMessage(), e))
+                            .doOnSuccess(response -> log.info("[RequestId: {}] Successfully created order ", customrequestId))
+                            .doOnError(e -> log.error("[RequestId: {}] Error creating order: {}", customrequestId, e.getMessage(), e))
                             .map(ResponseEntity::ok)
                             .onErrorResume(e -> {
                                 if (e instanceof BadRequestException) {
@@ -186,11 +191,12 @@ public class GatewayController {
         return requestIdContext.getRequestId()
                 .flatMap(requestId -> {
                     String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "order/" + orderId).build();
-                    log.info("[RequestId: {}] Updating order with ID: {} using URI: {}", requestId, orderId, uri);
+                    String customrequestId = requestId+"_productId_"+orderRestModel.getProductId();
+                    log.info("[RequestId: {}] Updating order with ID: {} using URI: {}", customrequestId, orderId, uri);
 
                     return webClient.put()
                             .uri(uri)
-                            .header("X-Request-Id", requestId)
+                            .header("X-Request-Id", customrequestId)
                             .bodyValue(orderRestModel)
                             .retrieve()
                             .onStatus(
@@ -199,10 +205,10 @@ public class GatewayController {
                                             .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
                             .bodyToMono(String.class)
                             .map(response -> {
-                                log.info("[RequestId: {}] Successfully updated order ID: {}", requestId, orderId);
+                                log.info("[RequestId: {}] Successfully updated order ID: {}", customrequestId, orderId);
                                 return ResponseEntity.ok(response);
                             })
-                            .doOnError(e -> log.error("[RequestId: {}] Error updating order {}: {}", requestId, orderId, e.getMessage(), e))
+                            .doOnError(e -> log.error("[RequestId: {}] Error updating order {}: {}", customrequestId, orderId, e.getMessage(), e))
                             .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
                 });
     }
@@ -240,17 +246,17 @@ public class GatewayController {
     @Operation(summary = "Search Orders", description = "Search orders by specific criteria with pagination and sorting")
     @PostMapping("/orders/search")
     public Mono<ResponseEntity<List<OrderRestModel>>> searchOrders(
-            @RequestParam int page, // Pagination: page number
-            @RequestParam int size, // Pagination: page size
-            @RequestParam String sortBy, // Sorting: field to sort by
-            @RequestParam String direction, // Sorting: direction (asc/desc)
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sortBy,
+            @RequestParam String direction,
             @RequestBody SearchRequest searchRequest) {
 
         // Retrieve the requestId from the context
         return requestIdContext.getRequestId()
                 .flatMap(requestId -> {
                     // Construct a custom requestId for logging
-                    String customRequestId = requestId + "_productId_" + (searchRequest.getProductId() != null ? searchRequest.getProductId() : "none");
+                    String customRequestId = requestId + "_productId_" + searchRequest.getProductId();
                     log.debug("[RequestId: {}] Received search request. Criteria: {}", customRequestId, searchRequest);
 
                     // Validate quantity range
@@ -269,21 +275,43 @@ public class GatewayController {
                         sortDirection = Sort.Direction.ASC; // Default to ascending if invalid
                     }
 
-                    // Build the URI for the downstream service using UriBuilder
-                    String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "search")
+                    // Build the URI dynamically based on present fields in searchRequest
+                    UriBuilder uriBuilder = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "search")
                             .addQueryParam("page", String.valueOf(page))
                             .addQueryParam("size", String.valueOf(size))
                             .addQueryParam("sortBy", sortBy)
-                            .addQueryParam("direction", sortDirection.name().toLowerCase())
-                            .build();
+                            .addQueryParam("direction", sortDirection.name().toLowerCase());
 
-                    log.debug("[RequestId: {}] Making request to Order Service: {}", customRequestId, uri);
+                    // Add search request filters if they are present
+                    if (searchRequest.getProductId() != null) {
+                        uriBuilder.addQueryParam("productId", searchRequest.getProductId());
+                    }
+                    if (searchRequest.getUserId() != null) {
+                        uriBuilder.addQueryParam("userId", searchRequest.getUserId());
+                    }
+                    if (searchRequest.getAddressId() != null) {
+                        uriBuilder.addQueryParam("addressId", searchRequest.getAddressId());
+                    }
+                    if (searchRequest.getQuantityMin() != null) {
+                        uriBuilder.addQueryParam("quantityMin", String.valueOf(searchRequest.getQuantityMin()));
+                    }
+                    if (searchRequest.getQuantityMax() != null) {
+                        uriBuilder.addQueryParam("quantityMax", String.valueOf(searchRequest.getQuantityMax()));
+                    }
 
-                    // Perform the POST request to the downstream service
+                    String uri = uriBuilder.build();
+
+                    log.info("Uri is: {}", uri);
+
+                    // Log request info
+                    log.debug("[RequestId: {}] Making request to API Gateway: {}", customRequestId, uri);
+
+                    // Build the request body as JSON
                     return webClient.post()
                             .uri(uri)
                             .header("X-Request-Id", customRequestId)
-                            .bodyValue(searchRequest) // Pass the request body as is
+                            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE) // Set content type to JSON
+                            .bodyValue(searchRequest) // Send the whole searchRequest object as the request body
                             .retrieve()
                             .onStatus(
                                     status -> status.is4xxClientError() || status.is5xxServerError(),

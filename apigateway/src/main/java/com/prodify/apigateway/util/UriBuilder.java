@@ -50,6 +50,9 @@
 
 package com.prodify.apigateway.util;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class UriBuilder {
 
     private StringBuilder pathBuilder;
@@ -60,10 +63,12 @@ public class UriBuilder {
         if (path != null && !path.isEmpty()) {
             this.pathBuilder.append("/").append(path);
         }
+        log.info(this.pathBuilder.toString());
     }
 
     // Static factory method to create an instance of UriBuilder
     public static UriBuilder of(ServiceName serviceName, String path) {
+        log.info(serviceName.serviceUrl + path);
         return new UriBuilder(serviceName, path);
     }
 
