@@ -10,7 +10,8 @@
 /Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/dto/SearchRequest.java
 /Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/filter/RequestIdFilter.java
 /Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/aggregate/OrderAggregate.java
-/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/handlers/OrderQueryHandler.java
+/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/specification/OrderSpecification.java
+/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/exception/OrderNotFoundException.java
 /Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/config/WebConfig.java
 /Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/util/RequestIdContext.java
 /Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/OrderService/src/main/java/com/prodify/cqrs/OrderService/query/api/exception/GlobalExceptionQueryHandler.java

@@ -72,10 +72,16 @@ public class OrderQueryController {
     }
     // New POST endpoint for searching orders with pagination and sorting
     @PostMapping("/search")
-    public ResponseEntity<List<OrderRestModel>> searchOrders(@RequestBody SearchRequest searchRequest) {
+    public ResponseEntity<List<OrderRestModel>> searchOrders(@RequestBody SearchRequest searchRequest,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size,
+                                                             @RequestParam(defaultValue = "productId") String sortBy,
+                                                             @RequestParam(defaultValue = "asc") String direction) {
+
         // Log the search request
         String requestId = requestIdContext.getRequestId();
-        log.debug("Received search request with requestId: {}. Search criteria: {}", requestId, searchRequest);
+        log.debug("Received search request with requestId: {}. Search criteria: {}, Page: {}, Size: {}, SortBy: {}, Direction: {}",
+                requestId, searchRequest, page, size, sortBy, direction);
 
         // Validate that quantityMin is less than or equal to quantityMax
         if (searchRequest.getQuantityMin() != null && searchRequest.getQuantityMax() != null
@@ -84,23 +90,17 @@ public class OrderQueryController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        // Set default sort direction if not provided
-        Sort.Direction direction = Sort.Direction.fromString(searchRequest.getDirection() != null ? searchRequest.getDirection() : "asc");
+        // Set the sorting direction
+        Sort.Direction sortDirection = Sort.Direction.fromString(direction);
 
         // Create the Pageable object for pagination and sorting
-        Pageable pageable = PageRequest.of(searchRequest.getPage(), searchRequest.getSize(),
-                Sort.by(direction, searchRequest.getSortBy() != null ? searchRequest.getSortBy() : "productId"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
 
         try {
             // Perform the search with dynamic criteria and pagination
             List<OrderRestModel> orders = orderQueryHandler.searchOrders(
-                    searchRequest.getProductId(),
-                    searchRequest.getUserId(),
-                    searchRequest.getAddressId(),
-                    searchRequest.getQuantityMin(),
-                    searchRequest.getQuantityMax(),
-                    pageable // Pass pageable to the query handler
-            );
+                    searchRequest.getProductId(), searchRequest.getUserId(), searchRequest.getAddressId(),
+                    searchRequest.getQuantityMin(), searchRequest.getQuantityMax(), pageable);
 
             // Log success
             log.info("Successfully retrieved {} orders based on search criteria with requestId: {}", orders.size(), requestId);
@@ -113,7 +113,6 @@ public class OrderQueryController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-
 
 
 }

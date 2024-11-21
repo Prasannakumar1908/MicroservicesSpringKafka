@@ -1,213 +1,3 @@
-//package com.prodify.apigateway.controller;
-//
-//import com.prodify.apigateway.dto.OrderRestModel;
-//import com.prodify.apigateway.dto.ProductRestModel;
-//import com.prodify.apigateway.dto.UserDTO;
-//import io.swagger.v3.oas.annotations.Operation;
-//import io.swagger.v3.oas.annotations.tags.Tag;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.reactive.function.client.WebClient;
-//import reactor.core.publisher.Mono;
-//
-//@RestController
-//@RequestMapping("/gateway")
-//public class GatewayController {
-//
-//    private final WebClient webClient;
-//
-//    public GatewayController(WebClient webClient) {
-//        this.webClient = webClient;
-//    }
-//
-//    // Order Service Endpoints
-//    @Tag(name = "Order Service", description = "Operations for managing orders")
-//    @Operation(summary = "Create an Order", description = "Creates a new order by delegating to the Order Service")
-//    @PostMapping("/orders")
-//    public Mono<ResponseEntity<String>> createOrder(@RequestBody OrderRestModel orderRestModel) {
-//        return webClient.post()
-//                .uri("http://localhost:8083/orders/order")
-//                .bodyValue(orderRestModel)
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(String.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-//    }
-//
-//    @Tag(name = "Order Service", description = "Operations for managing orders")
-//    @Operation(summary = "Get Order Message", description = "Returns a test message from the Order Service")
-//    @GetMapping("/orders/message")
-//    public Mono<ResponseEntity<String>> getOrderMessage() {
-//        return webClient.get()
-//                .uri("http://localhost:8083/orders/message")
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(String.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-//    }
-//
-//    // Product Service Endpoints
-//    @Tag(name = "Product Service", description = "Operations for managing products")
-//    @Operation(summary = "Add a Product", description = "Adds a new product by delegating to the Product Service")
-//    @PostMapping("/products")
-//    public Mono<ResponseEntity<String>> addProduct(@RequestBody ProductRestModel productRestModel) {
-//        return webClient.post()
-//                .uri("http://localhost:8085/products")
-//                .bodyValue(productRestModel)
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(String.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-//    }
-//
-//    // User Service Endpoints
-//    @Tag(name = "User Service", description = "Operations for managing users")
-//    @Operation(summary = "Get User Payment Details", description = "Fetches payment details for a specific user from the User Service")
-//    @GetMapping("/users/{userId}")
-//    public Mono<ResponseEntity<UserDTO>> getUserPaymentDetails(@PathVariable String userId) {
-//        return webClient.get()
-//                .uri("http://localhost:8087/users/" + userId)
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(UserDTO.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
-//    }
-//}
-
-
-//package com.prodify.apigateway.controller;
-//import com.prodify.apigateway.dto.OrderRestModel;
-//import com.prodify.apigateway.dto.ProductRestModel;
-//import com.prodify.apigateway.dto.UserDTO;
-//import com.prodify.apigateway.util.ServiceName;
-//import com.prodify.apigateway.util.UriBuilder;
-//import io.swagger.v3.oas.annotations.Operation;
-//import io.swagger.v3.oas.annotations.tags.Tag;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.reactive.function.client.WebClient;
-//import reactor.core.publisher.Mono;
-//
-//@RestController
-//@RequestMapping("/gateway")
-//public class GatewayController {
-//
-//    private final WebClient webClient;
-//
-//    public GatewayController(WebClient.Builder webClientBuilder) {
-//        this.webClient = webClientBuilder.build();  // Build load-balanced WebClient
-//    }
-//
-//    // Order Service Endpoints
-//
-//    @Tag(name = "Order Service", description = "Operations for managing orders")
-//    @Operation(summary = "Create an Order", description = "Creates a new order by delegating to the Order Service")
-//    @PostMapping("/orders")
-//    public Mono<ResponseEntity<String>> createOrder(@RequestBody OrderRestModel orderRestModel) {
-//
-//        String uri = new UriBuilder(ServiceName.ORDER_SERVICE_URL, "order").build();
-//        System.out.println("URI: " + uri);
-//        return webClient.post()
-//                .uri(uri)  // Using lb:// for load balancing
-//                .bodyValue(orderRestModel)
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(String.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-//    }
-//
-////    @Tag(name = "Order Service", description = "Operations for managing orders")
-////    @Operation(summary = "Create an Order", description = "Creates a new order by delegating to the Order Service")
-////    @PostMapping("/orders")
-////    public Mono<ResponseEntity<String>> createOrder(@RequestBody OrderRestModel orderRestModel) {
-////        String uri = new UriBuilder(ServiceName.ORDER_SERVICE_URL, "order").build();
-////
-////        return webClient.post()
-////                .uri(uri)
-////                .bodyValue(orderRestModel)
-////                .retrieve()
-////                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-////                        response -> response.bodyToMono(String.class)
-////                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-////                .bodyToMono(String.class)
-////                .map(ResponseEntity::ok)
-////                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-////    }
-//
-//
-//    @Tag(name = "Order Service", description = "Operations for managing orders")
-//    @Operation(summary = "Get Order Message", description = "Returns a test message from the Order Service")
-//    @GetMapping("/message")
-//    public Mono<ResponseEntity<String>> getOrderMessage() {
-//        String uri = new UriBuilder(ServiceName.ORDER_SERVICE_URL, "message").build();
-//        return webClient.get()
-//                .uri(uri)  // Using lb:// for load balancing //"lb://order-service/orders/message"
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(String.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-//    }
-//
-//    // Product Service Endpoints
-//
-//    @Tag(name = "Product Service", description = "Operations for managing products")
-//    @Operation(summary = "Add a Product", description = "Adds a new product by delegating to the Product Service")
-//    @PostMapping("/products")
-//    public Mono<ResponseEntity<String>> addProduct(@RequestBody ProductRestModel productRestModel) {
-//        String uri = new UriBuilder(ServiceName.PRODUCT_SERVICE_URL, "product").build();
-//
-//        return webClient.post()
-//                .uri(uri)  // Using lb:// for load balancing
-//                .bodyValue(productRestModel)
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(String.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage())));
-//    }
-//
-//    // User Service Endpoints
-//
-//    @Tag(name = "User Service", description = "Operations for managing users")
-//    @Operation(summary = "Get User Payment Details", description = "Fetches payment details for a specific user from the User Service")
-//    @GetMapping("/users/{userId}")
-//    public Mono<ResponseEntity<UserDTO>> getUserPaymentDetails(@PathVariable String userId) {
-//        String uri = new UriBuilder(ServiceName.USER_SERVICE_URL, userId).build();
-//
-//        return webClient.get()
-//                .uri(uri)  // Using lb:// for load balancing
-//                .retrieve()
-//                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
-//                        response -> response.bodyToMono(String.class)
-//                                .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-//                .bodyToMono(UserDTO.class)
-//                .map(ResponseEntity::ok)
-//                .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
-//    }
-//}
-
 package com.prodify.apigateway.controller;
 
 import com.prodify.apigateway.dto.OrderRestModel;
@@ -449,41 +239,61 @@ public class GatewayController {
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Search Orders", description = "Search orders by specific criteria with pagination and sorting")
     @PostMapping("/orders/search")
-    public Mono<ResponseEntity<List<OrderRestModel>>> searchOrders(@RequestBody SearchRequest searchRequest) {
-        // Get the requestId from the context
+    public Mono<ResponseEntity<List<OrderRestModel>>> searchOrders(
+            @RequestParam int page, // Pagination: page number
+            @RequestParam int size, // Pagination: page size
+            @RequestParam String sortBy, // Sorting: field to sort by
+            @RequestParam String direction, // Sorting: direction (asc/desc)
+            @RequestBody SearchRequest searchRequest) {
+
+        // Retrieve the requestId from the context
         return requestIdContext.getRequestId()
                 .flatMap(requestId -> {
-                    // Build the URI for the Order Service
-                    String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "search").build();
-                    log.info("[RequestId: {}] Searching orders with criteria: {}", requestId, searchRequest);
+                    // Construct a custom requestId for logging
+                    String customRequestId = requestId + "_productId_" + (searchRequest.getProductId() != null ? searchRequest.getProductId() : "none");
+                    log.debug("[RequestId: {}] Received search request. Criteria: {}", customRequestId, searchRequest);
 
-                    // Validate quantity range before making the request
+                    // Validate quantity range
                     if (searchRequest.getQuantityMin() != null && searchRequest.getQuantityMax() != null
                             && searchRequest.getQuantityMin() > searchRequest.getQuantityMax()) {
-                        log.warn("[RequestId: {}] Invalid quantity range. quantityMin cannot be greater than quantityMax.", requestId);
+                        log.warn("[RequestId: {}] Invalid quantity range. quantityMin cannot be greater than quantityMax.", customRequestId);
                         return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
                     }
 
-                    // Prepare pagination and sorting (using values from SearchRequest)
-                    Sort.Direction direction = Sort.Direction.fromString(searchRequest.getDirection() != null ? searchRequest.getDirection() : "asc");
-                    Pageable pageable = PageRequest.of(searchRequest.getPage(), searchRequest.getSize(),
-                            Sort.by(direction, searchRequest.getSortBy() != null ? searchRequest.getSortBy() : "productId"));
+                    // Validate and sanitize direction
+                    Sort.Direction sortDirection;
+                    try {
+                        sortDirection = Sort.Direction.fromString(direction.trim());
+                    } catch (IllegalArgumentException e) {
+                        log.warn("[RequestId: {}] Invalid sort direction '{}'. Defaulting to 'asc'.", customRequestId, direction);
+                        sortDirection = Sort.Direction.ASC; // Default to ascending if invalid
+                    }
 
-                    // Use the SearchRequest object (no need for the Pageable in the body)
+                    // Build the URI for the downstream service using UriBuilder
+                    String uri = UriBuilder.of(ServiceName.ORDER_SERVICE_URL, "search")
+                            .addQueryParam("page", String.valueOf(page))
+                            .addQueryParam("size", String.valueOf(size))
+                            .addQueryParam("sortBy", sortBy)
+                            .addQueryParam("direction", sortDirection.name().toLowerCase())
+                            .build();
+
+                    log.debug("[RequestId: {}] Making request to Order Service: {}", customRequestId, uri);
+
+                    // Perform the POST request to the downstream service
                     return webClient.post()
                             .uri(uri)
-                            .header("X-Request-Id", requestId)
-                            .bodyValue(searchRequest) // Pass the searchRequest as is
+                            .header("X-Request-Id", customRequestId)
+                            .bodyValue(searchRequest) // Pass the request body as is
                             .retrieve()
                             .onStatus(
                                     status -> status.is4xxClientError() || status.is5xxServerError(),
                                     response -> response.bodyToMono(String.class)
                                             .flatMap(errorBody -> Mono.error(new RuntimeException(errorBody))))
-                            .bodyToFlux(OrderRestModel.class) // Convert the response to a list of OrderRestModel
+                            .bodyToFlux(OrderRestModel.class) // Deserialize response
                             .collectList()
-                            .map(ResponseEntity::ok) // Wrap the result in ResponseEntity with OK status
-                            .doOnSuccess(response -> log.info("[RequestId: {}] Successfully searched orders", requestId))
-                            .doOnError(e -> log.error("[RequestId: {}] Error searching orders: {}", requestId, e.getMessage(), e))
+                            .map(ResponseEntity::ok) // Wrap the response in ResponseEntity with OK status
+                            .doOnSuccess(response -> log.info("[RequestId: {}] Successfully retrieved {} orders.", customRequestId, response.getBody().size()))
+                            .doOnError(e -> log.error("[RequestId: {}] Error searching orders: {}", customRequestId, e.getMessage(), e))
                             .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
                 });
     }
@@ -566,7 +376,6 @@ public class GatewayController {
                             .onErrorResume(e -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
                 });
     }
-
 
 }
 

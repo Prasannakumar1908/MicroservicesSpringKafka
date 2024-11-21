@@ -10,6 +10,7 @@ com/prodify/cqrs/OrderService/command/api/events/OrderCreatedEvent.class
 com/prodify/cqrs/OrderService/command/api/command/UpdateOrderCommand.class
 com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.class
 com/prodify/cqrs/OrderService/query/api/dto/SearchRequest.class
+com/prodify/cqrs/OrderService/query/api/exception/OrderNotFoundException.class
 com/prodify/cqrs/OrderService/command/api/util/RequestIdContext.class
 com/prodify/cqrs/OrderService/query/api/models/OrderResponseModel$OrderResponseModelBuilder.class
 com/prodify/cqrs/OrderService/command/api/config/WebConfig$1.class
@@ -28,7 +29,9 @@ com/prodify/cqrs/OrderService/command/api/filter/RequestIdFilter.class
 com/prodify/cqrs/OrderService/command/api/config/KafkaProducerConfig.class
 com/prodify/cqrs/OrderService/OrderServiceApplication.class
 com/prodify/cqrs/OrderService/query/api/handler/OrderQueryHandler.class
+com/prodify/cqrs/OrderService/query/api/specification/OrderSpecification.class
 com/prodify/cqrs/OrderService/command/api/saga/OrderProcessingSaga.class
 com/prodify/cqrs/OrderService/command/api/command/UpdateOrderCommand$UpdateOrderCommandBuilder.class
 com/prodify/cqrs/OrderService/command/api/data/Order.class
+com/prodify/cqrs/OrderService/query/api/dto/SearchRequest$SearchRequestBuilder.class
 com/prodify/cqrs/OrderService/command/api/exception/GlobalExceptionHandler.class

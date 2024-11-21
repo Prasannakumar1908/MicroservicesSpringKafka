@@ -15,7 +15,12 @@ public interface OrderRepository extends JpaRepository<Order, String> {
             "(:userId IS NULL OR o.userId = :userId) AND " +
             "(:addressId IS NULL OR o.addressId = :addressId) AND " +
             "(:quantityMin IS NULL OR o.quantity >= :quantityMin) AND " +
-            "(:quantityMax IS NULL OR o.quantity <= :quantityMax)")
+            "(:quantityMax IS NULL OR o.quantity <= :quantityMax) " +
+            "ORDER BY o.productId DESC")  // Replace `productId` if needed with `quantity` or any other field
     List<Order> findAllByFilters(String productId, String userId, String addressId,
                                  Integer quantityMin, Integer quantityMax, Pageable pageable);
+
+
+
+
 }

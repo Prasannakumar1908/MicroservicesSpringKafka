@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axon-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: axon-server
+  template:
+    metadata:
+      labels:
+        app: axon-server
+    spec:
+      containers:
+        - name: axon-server
+          image: axoniq/axonserver
+          ports:
+            - containerPort: 8124
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: axon-server-service
+spec:
+  selector:
+    app: axon-server
+  ports:
+    - protocol: TCP
+      port: 8124
+      targetPort: 8124
+  type: ClusterIP

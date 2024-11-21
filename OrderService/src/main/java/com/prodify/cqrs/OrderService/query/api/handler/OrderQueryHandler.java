@@ -7,8 +7,6 @@ import com.prodify.cqrs.OrderService.command.api.util.RequestIdContext;
 import com.prodify.cqrs.OrderService.query.api.exception.OrderNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +26,6 @@ public class OrderQueryHandler {
         this.requestIdContext = requestIdContext;
     }
 
-    // Query to fetch a specific order by orderId
     public OrderRestModel getOrderById(String orderId) {
         String requestId = requestIdContext.getRequestId();
         log.debug("Received request to fetch order details for orderId: {} with requestId: {}", orderId, requestId);
@@ -66,7 +63,17 @@ public class OrderQueryHandler {
         }
     }
 
-    // New method to search orders based on dynamic criteria (filtering, pagination, sorting)
+    /**
+     * Searches for orders based on dynamic criteria with pagination and sorting.
+     *
+     * @param productId   optional filter by product ID
+     * @param userId      optional filter by user ID
+     * @param addressId   optional filter by address ID
+     * @param quantityMin optional minimum quantity filter
+     * @param quantityMax optional maximum quantity filter
+     * @param pageable    pageable object for pagination and sorting
+     * @return a list of matching orders as OrderRestModel
+     */
     public List<OrderRestModel> searchOrders(String productId, String userId, String addressId,
                                              Integer quantityMin, Integer quantityMax, Pageable pageable) {
 
@@ -99,7 +106,14 @@ public class OrderQueryHandler {
         }
     }
 
-    // Convert entity to model
+
+
+    /**
+     * Converts an Order entity to OrderRestModel.
+     *
+     * @param order the Order entity
+     * @return the OrderRestModel representation
+     */
     private OrderRestModel convertToOrderRestModel(Order order) {
         log.debug("Converting OrderEntity to OrderRestModel: {}", order);
         OrderRestModel model = new OrderRestModel();

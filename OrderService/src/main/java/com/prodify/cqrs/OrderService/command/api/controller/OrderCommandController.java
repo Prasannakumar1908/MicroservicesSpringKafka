@@ -352,7 +352,8 @@ public class OrderCommandController {
             );
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid quantity. Must be greater than 0.");
         }
-        UpdateOrderCommand updateOrderCommand = UpdateOrderCommand.builder()
+        try{
+            UpdateOrderCommand updateOrderCommand = UpdateOrderCommand.builder()
                 .orderId(orderId)
                 .userId(orderRestModel.getUserId())
                 .addressId(orderRestModel.getAddressId())
@@ -361,7 +362,6 @@ public class OrderCommandController {
                 .orderStatus("UPDATED")
                 .requestId(requestId)
                 .build();
-        try {
             log.debug("Sending UpdateOrderCommand to command gateway for Order ID: {} with requestID: {}",orderId,requestId);
             commandGateway.sendAndWait(updateOrderCommand);
             log.info("Successfully sent UpdateOrderCommand for Order ID: {}", orderId);
