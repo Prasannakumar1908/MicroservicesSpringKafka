@@ -47,6 +47,7 @@ public class UserController {
 
 
     @GetMapping("{userId}")
+    @QueryHandler
     public User getUserPaymentDetails(@PathVariable String userId){
         GetUserPaymentDetailsQuery getUserPaymentDetailsQuery
                 = new GetUserPaymentDetailsQuery(userId);

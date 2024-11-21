@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,17 +64,17 @@ public class OrderQueryHandler {
             log.error("Error fetching all orders for requestId: {}", requestId, e);
             throw new RuntimeException("Error occurred while fetching all orders", e);  // rethrow exception after logging
         }
-
     }
+
     // New method to search orders based on dynamic criteria (filtering, pagination, sorting)
     public List<OrderRestModel> searchOrders(String productId, String userId, String addressId,
-                                             Integer quantityMin, Integer quantityMax, int page, int size,
-                                             String sortBy, String direction) {
+                                             Integer quantityMin, Integer quantityMax, Pageable pageable) {
 
         String requestId = requestIdContext.getRequestId();
         log.debug("Received search request with filters: ProductId: {}, UserId: {}, AddressId: {}, " +
-                "QuantityMin: {}, QuantityMax: {}, Page: {}, Size: {}, SortBy: {}, Direction: {} " +
-                "with requestId: {}", productId, userId, addressId, quantityMin, quantityMax, page, size, sortBy, direction, requestId);
+                        "QuantityMin: {}, QuantityMax: {}, Page: {}, Size: {}, SortBy: {}, Direction: {} " +
+                        "with requestId: {}", productId, userId, addressId, quantityMin, quantityMax,
+                pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort(), requestId);
 
         // Validate search parameters
         if (quantityMin != null && quantityMax != null && quantityMin > quantityMax) {
@@ -82,14 +82,9 @@ public class OrderQueryHandler {
             throw new IllegalArgumentException("quantityMin cannot be greater than quantityMax");
         }
 
-        // Prepare sorting
-        Sort.Direction sortDirection = Sort.Direction.fromString(direction);
-        Sort sort = Sort.by(Sort.Order.by(sortBy).with(sortDirection));
-        PageRequest pageRequest = PageRequest.of(page, size, sort);
-
         try {
             // Query the database with the provided filters and pagination
-            List<Order> orders = orderRepository.findAllByFilters(productId, userId, addressId, quantityMin, quantityMax, pageRequest);
+            List<Order> orders = orderRepository.findAllByFilters(productId, userId, addressId, quantityMin, quantityMax, pageable);
 
             log.info("Successfully retrieved {} orders based on search criteria with requestId: {}", orders.size(), requestId);
 
@@ -103,6 +98,7 @@ public class OrderQueryHandler {
             throw new RuntimeException("Error occurred during the search process", e);  // rethrow exception after logging
         }
     }
+
     // Convert entity to model
     private OrderRestModel convertToOrderRestModel(Order order) {
         log.debug("Converting OrderEntity to OrderRestModel: {}", order);

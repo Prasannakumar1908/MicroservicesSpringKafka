@@ -7,9 +7,14 @@ import com.prodify.cqrs.OrderService.query.api.exception.OrderNotFoundException;
 import com.prodify.cqrs.OrderService.query.api.handler.OrderQueryHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 
 import java.util.List;
 
@@ -68,34 +73,47 @@ public class OrderQueryController {
     // New POST endpoint for searching orders with pagination and sorting
     @PostMapping("/search")
     public ResponseEntity<List<OrderRestModel>> searchOrders(@RequestBody SearchRequest searchRequest) {
-
+        // Log the search request
         String requestId = requestIdContext.getRequestId();
         log.debug("Received search request with requestId: {}. Search criteria: {}", requestId, searchRequest);
 
+        // Validate that quantityMin is less than or equal to quantityMax
         if (searchRequest.getQuantityMin() != null && searchRequest.getQuantityMax() != null
                 && searchRequest.getQuantityMin() > searchRequest.getQuantityMax()) {
             log.warn("Invalid search request: quantityMin cannot be greater than quantityMax. RequestId: {}", requestId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
+        // Set default sort direction if not provided
+        Sort.Direction direction = Sort.Direction.fromString(searchRequest.getDirection() != null ? searchRequest.getDirection() : "asc");
+
+        // Create the Pageable object for pagination and sorting
+        Pageable pageable = PageRequest.of(searchRequest.getPage(), searchRequest.getSize(),
+                Sort.by(direction, searchRequest.getSortBy() != null ? searchRequest.getSortBy() : "productId"));
+
         try {
+            // Perform the search with dynamic criteria and pagination
             List<OrderRestModel> orders = orderQueryHandler.searchOrders(
                     searchRequest.getProductId(),
                     searchRequest.getUserId(),
                     searchRequest.getAddressId(),
                     searchRequest.getQuantityMin(),
                     searchRequest.getQuantityMax(),
-                    searchRequest.getPage(),
-                    searchRequest.getSize(),
-                    searchRequest.getSortBy(),
-                    searchRequest.getDirection()
+                    pageable // Pass pageable to the query handler
             );
+
+            // Log success
             log.info("Successfully retrieved {} orders based on search criteria with requestId: {}", orders.size(), requestId);
+
+            // Return the found orders with OK status
             return ResponseEntity.ok(orders);
         } catch (Exception e) {
+            // Log error and return internal server error
             log.error("Error during order search with requestId: {}", requestId, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+
 
 }
