@@ -385,13 +385,13 @@ public class OrderCommandController {
 
         String requestId = requestIdContext.getRequestId();
         log.debug("Received DeleteOrder request for Order ID: {} with requestId: {} using /orders/order/{}", orderId, requestId,orderId);
-
-        try {
-            UUID.fromString(orderId);
-        } catch (IllegalArgumentException e) {
-            log.warn("Invalid Order ID format: {}. Expected UUID format in requestId: {}", orderId, requestId);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Order ID format.");
-        }
+//
+//        try {
+//            UUID.fromString(orderId);
+//        } catch (IllegalArgumentException e) {
+//            log.warn("Invalid Order ID format: {}. Expected UUID format in requestId: {}", orderId, requestId);
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Order ID format.");
+//        }
 
         DeleteOrderCommand deleteOrderCommand = DeleteOrderCommand.builder()
                 .orderId(orderId)

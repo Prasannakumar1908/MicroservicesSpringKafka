@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: axon-server-service
+  name: axon-server
 spec:
   selector:
     app: axon-server
@@ -29,4 +29,3 @@ spec:
     - protocol: TCP
       port: 8124
       targetPort: 8124
-  type: ClusterIP

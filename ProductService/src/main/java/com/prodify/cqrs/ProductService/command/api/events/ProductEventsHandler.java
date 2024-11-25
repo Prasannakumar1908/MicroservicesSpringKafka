@@ -32,9 +32,7 @@ public class ProductEventsHandler {
         BeanUtils.copyProperties(event,product);
         productRepository.save(product);
         log.info("Product created with ID:{}",event.getProductId());
-//        logger.info("Product created with ID: {}",event.getProductId());
 
-        throw new Exception("Exception Occurred");
     }
 
     @ExceptionHandler

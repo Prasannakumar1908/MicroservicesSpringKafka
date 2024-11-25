@@ -35,12 +35,12 @@
         <spring-cloud.version>2023.0.3</spring-cloud.version>
     </properties>
     <modules>
-        <module>CommonService</module>
         <module>OrderService</module>
         <module>PaymentService</module>
         <module>ShipmentService</module>
         <module>UserService</module>
         <module>ProductService</module>
+        <module>CommonService</module>
         <module>AuthService</module>
     </modules>
     <dependencies>
