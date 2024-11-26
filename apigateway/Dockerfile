@@ -1,14 +1,14 @@
-# Use a Java base image
+# Use OpenJDK base image
 FROM openjdk:17-jdk-slim
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the JAR file from the target directory
-COPY target/apigateway-0.0.1-SNAPSHOT.jar /app/apigateway.jar
+# Copy the jar file into the container
+COPY target/apigateway-0.0.1-SNAPSHOT.jar apigateway-0.0.1-SNAPSHOT.jar
 
-# Expose the port the app will run on
-EXPOSE 8082
+# Expose the port the app runs on
+EXPOSE ${SERVER_PORT:-8083}
 
-# Command to run the app
-ENTRYPOINT ["java", "-jar", "apigateway.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "/app/apigateway-0.0.1-SNAPSHOT.jar"]
