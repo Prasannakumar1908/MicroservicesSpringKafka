@@ -1,4 +1,5 @@
-# event-driven-microservices
+# Microservices using spring, kafa, axon, eureka server
+This application contains microservices using kafka, axon, eureka server.
 event-driven-microservices
 
 kafka zookeeper and broker starting commands using bash
