@@ -1,6 +1,5 @@
 # Microservices using spring, kafa, axon, eureka server
-This application contains microservices using kafka, axon, eureka server.
-event-driven-microservices
+This repository contains event-driven microservices using kafka, axon, eureka server with saga design pattern.
 
 kafka zookeeper and broker starting commands using bash
 ```bash
