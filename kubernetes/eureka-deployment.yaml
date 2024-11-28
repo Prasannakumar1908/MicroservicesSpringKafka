@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: springcloud/eureka
+          image: steeltoeoss/eureka-server:latest
           ports:
             - containerPort: 8761
           env:
@@ -30,7 +30,11 @@ kind: Service
 metadata:
   name: eureka-server
 spec:
+  type: LoadBalancer
   ports:
-    - port: 8761
+    - name: http
+      protocol: TCP
+      port: 8761
+      targetPort: 8761
   selector:
     app: eureka-server

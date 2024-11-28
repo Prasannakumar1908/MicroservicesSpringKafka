@@ -16,6 +16,7 @@ spec:
         - name: axon-server
           image: axoniq/axonserver:latest
           ports:
+            - containerPort: 8024
             - containerPort: 8124
 ---
 apiVersion: v1
@@ -23,11 +24,15 @@ kind: Service
 metadata:
   name: axon-server
 spec:
-  type: NodePort  # Expose the service via a NodePort
-  ports:
-    - port: 8124
-      targetPort: 8124
-      protocol: TCP
-      nodePort: 30001  # External port you can use to access the service
   selector:
     app: axon-server
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8024
+    targetPort: 8024
+  - name: grpc
+    protocol: TCP
+    port: 8124
+    targetPort: 8124
+  type: LoadBalancer

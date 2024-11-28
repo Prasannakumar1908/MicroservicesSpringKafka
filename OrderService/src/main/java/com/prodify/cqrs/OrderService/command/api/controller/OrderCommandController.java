@@ -326,7 +326,7 @@ public class OrderCommandController {
             orderKafkaProducer.sendOrderEvent("order-events",orderId, orderRestModel);
             log.info("Order event successfully published to Kafka for Order ID: {} with requestID:{}", orderId, requestId);
 
-            return ResponseEntity.ok("Order Created with ID: " + orderId);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Order Created with ID: " + orderId);
 
         } catch (CommandExecutionException e) {
             log.error("Failed to execute CreateOrderCommand for Order ID: {} with requestId:{}", orderId,requestId, e);
