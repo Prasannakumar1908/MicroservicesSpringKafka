@@ -17,3 +17,7 @@ helm install kafka bitnami/kafka \
 --set controller.automountServiceAccountToken=true \
 --set broker.automountServiceAccountToken=true
 ```
+```bash
+helm uninstall kafka
+```
+
