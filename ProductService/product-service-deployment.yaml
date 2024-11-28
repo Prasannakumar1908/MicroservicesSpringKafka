@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-service
+  template:
+    metadata:
+      labels:
+        app: product-service
+    spec:
+      containers:
+        - name: product-service
+          image: prasanna1908/product-service:latest   # Replace with your Docker image
+          ports:
+            - containerPort: 8085
+          env:
+            - name: EUREKA_SERVER_URL
+              value: "http://eureka-server.default.svc.cluster.local:8761/eureka"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka.default.svc.cluster.local:9092"
+            - name: POSTGRES_DB_URL
+              value: "jdbc:postgresql://postgres.default.svc.cluster.local:5432/productDB"
+            - name: API_GATEWAY_URL
+              value: "http://api-gateway.default.svc.cluster.local:8082"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: product-service
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: 8085

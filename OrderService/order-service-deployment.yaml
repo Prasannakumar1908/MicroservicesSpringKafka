@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: prasanna1908/order-service:latest   # Replace with your image if using a registry
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres.default.svc.cluster.local:5432/orderDB"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "postgres"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "Prasanna@123"
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-controller-0-external.default.svc.cluster.local:9092"
+            - name: AXON_SERVER_URL
+              value: "axon-server.default.svc.cluster.local:8124"
+            - name: EUREKA_SERVER_URL
+              value: "eureka-server.default.svc.cluster.local:8761/eureka/"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: order-service
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083

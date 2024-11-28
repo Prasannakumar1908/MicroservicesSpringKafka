@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shipment-service
+  template:
+    metadata:
+      labels:
+        app: shipment-service
+    spec:
+      containers:
+        - name: shipment-service
+          image: prasanna1908/shipment-service:latest
+          ports:
+            - containerPort: 8086
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres.default.svc.cluster.local:5432/shipmentDB"
+            - name: AXON_SERVER_URL
+              value: "axon-server.default.svc.cluster.local:8124"
+            - name: EUREKA_SERVER_URL
+              value: "http://eureka-server.default.svc.cluster.local:8761/eureka"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipment-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: shipment-service
+  ports:
+    - protocol: TCP
+      port: 8086
+      targetPort: 8086

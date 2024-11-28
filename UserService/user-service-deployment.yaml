@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: prasanna1908/user-service:latest
+          ports:
+            - containerPort: 8087
+          env:
+            - name: EUREKA_SERVER_URL
+              value: "http://eureka-server.default.svc.cluster.local:8761/eureka"
+            - name: AXON_SERVER_URL
+              value: "axon-server.default.svc.cluster.local:8124"
+            - name: API_GATEWAY_URL
+              value: "http://apigateway.default.svc.cluster.local:8082"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 8087
+      targetPort: 8087

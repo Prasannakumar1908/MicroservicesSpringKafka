@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: prasanna1908/api-gateway:latest   # Replace with your Docker image name if pushing to Docker Hub or another registry
+          ports:
+            - containerPort: 8082
+          env:
+            - name: EUREKA_SERVER_URL
+              value: "http://eureka-server.default.svc.cluster.local:8761/eureka"
+            - name: API_GATEWAY_URL
+              value: "http://api-gateway.default.svc.cluster.local:8082"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+spec:
+  type: LoadBalancer
+  selector:
+    app: api-gateway
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
