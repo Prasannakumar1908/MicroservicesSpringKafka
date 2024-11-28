@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/java/com/prodify/cqrs/OrderService/command/api/controller/OrderCommandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kubernetes/eureka-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes/eureka-deployment.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kubernetes/postgres-deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes/postgres-deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProductService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ProductService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discoveryservice/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/discoveryservice/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discoveryservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discoveryservice/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +76,7 @@
     "Maven.OrderService .executor": "Run",
     "Maven.apigateway [clean,compile,install].executor": "Run",
     "Maven.apigateway [install].executor": "Run",
+    "Maven.discoveryservice [clean,compile,install].executor": "Run",
     "Maven.gatewayservice [clean,compile,install].executor": "Run",
     "Maven.spring-boot-axon-cqrs-es [clean,compile...].executor": "Run",
     "Maven.spring-boot-axon-cqrs-es.executor": "Run",
@@ -137,6 +139,7 @@
       <recent name="$PROJECT_DIR$/PaymentService" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/kubernetes" />
       <recent name="$PROJECT_DIR$/kubernetes/postgres" />
     </key>
@@ -164,7 +167,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.OrderService/Dockerfile">
+  <component name="RunManager" selected="Maven.discoveryservice [clean,compile,install]">
     <configuration name="OrderEventsHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OrderService" />
       <extension name="coverage">
@@ -295,6 +298,38 @@
             </option>
             <option name="resolveToWorkspace" value="false" />
             <option name="workingDirPath" value="$PROJECT_DIR$/apigateway" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="discoveryservice [clean,compile,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="compile" />
+                <option value="install" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/discoveryservice" />
           </MavenRunnerParameters>
         </option>
       </MavenSettings>
@@ -511,6 +546,7 @@
       <item itemvalue="Maven.gatewayservice [clean,compile,install]" />
       <item itemvalue="Maven.spring-boot-axon-cqrs-es [clean,compile...]" />
       <item itemvalue="Maven.OrderService " />
+      <item itemvalue="Maven.discoveryservice [clean,compile,install]" />
       <item itemvalue="Spring Boot.ApigatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.DiscoveryserviceApplication" />
@@ -575,7 +611,7 @@
       <workItem from="1732517209387" duration="296000" />
       <workItem from="1732517600673" duration="255000" />
       <workItem from="1732517870013" duration="203000" />
-      <workItem from="1732625526206" duration="15274000" />
+      <workItem from="1732625526206" duration="31921000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />
