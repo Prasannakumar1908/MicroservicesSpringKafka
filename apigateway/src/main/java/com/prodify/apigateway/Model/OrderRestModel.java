@@ -1,4 +1,4 @@
-package com.prodify.apigateway.dto;
+package com.prodify.apigateway.Model;
 
 
 import jakarta.validation.constraints.NotNull;

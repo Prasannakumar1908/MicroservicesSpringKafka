@@ -1,4 +1,4 @@
-package com.prodify.apigateway.dto;
+package com.prodify.apigateway.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

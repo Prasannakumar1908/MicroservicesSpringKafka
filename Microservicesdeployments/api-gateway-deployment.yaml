@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: prasanna1908/api-gateway:latest   # Replace with your Docker image name if pushing to Docker Hub or another registry
+          image: prasanna1908/api-gateway:latest
           ports:
             - containerPort: 8082
           env:
             - name: EUREKA_SERVER_URL
-              value: "http://eureka-server.default.svc.cluster.local:8761"
+              value: "http://eureka-server:8761/eureka/"
             - name: API_GATEWAY_URL
               value: "http://api-gateway.default.svc.cluster.local:8082"
 ---

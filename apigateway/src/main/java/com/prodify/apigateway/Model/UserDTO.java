@@ -1,4 +1,4 @@
-package com.prodify.apigateway.dto;
+package com.prodify.apigateway.Model;
 
 public class UserDTO {
     private String userId;
