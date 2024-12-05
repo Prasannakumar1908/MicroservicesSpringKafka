@@ -1,6 +1,6 @@
 package com.prodify.apigateway.Model;
 
-public class UserDTO {
+public class UserModel {
     private String userId;
     private String paymentDetails;
 

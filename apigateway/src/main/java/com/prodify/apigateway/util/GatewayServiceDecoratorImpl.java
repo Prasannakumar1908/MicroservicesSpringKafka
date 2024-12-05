@@ -1,11 +1,9 @@
 package com.prodify.apigateway.util;
 
+import com.prodify.apigateway.exception.DownstreamServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -35,21 +33,36 @@ public class GatewayServiceDecoratorImpl implements GatewayServiceDecorator {
                     }
                     String uri = UriBuilder.of(ServiceName.valueOf(serviceName), endpoint).build();
                     log.info("[RequestId: {}] Executing {} request to URI: {}", mutableRequestId[0], method, uri);
+
                     WebClient.RequestBodySpec requestSpec = webClient.method(method)
                             .uri(uri)
                             .header("X-Request-Id", mutableRequestId[0])
                             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+
                     if (body != null) {
                         requestSpec.bodyValue(body);
                     }
+
                     return requestSpec.retrieve()
+                            .onStatus(
+                                    status -> status.is4xxClientError() || status.is5xxServerError(),
+                                    clientResponse -> clientResponse.bodyToMono(String.class)
+                                            .flatMap(errorBody -> {
+                                                log.error("[RequestId: {}] Downstream error: {}", mutableRequestId[0], errorBody);
+                                                return Mono.error(new DownstreamServiceException(
+                                                        clientResponse.statusCode(),
+                                                        errorBody
+                                                ));
+                                            })
+                            )
+
                             .bodyToMono(responseType)
                             .map(ResponseEntity::ok)
                             .doOnSuccess(response -> log.info("[RequestId: {}] Request successful", mutableRequestId[0]))
-                            .doOnError(e -> log.error("[RequestId: {}] Request failed: {}", mutableRequestId[0], e.getMessage(), e))
-                            .onErrorResume(e -> Mono.just(ResponseEntity.status(500).body(null)));
+                            .doOnError(e -> log.error("[RequestId: {}] Request failed: {}", mutableRequestId[0], e.getMessage(), e));
                 });
     }
+
 
 
     private String extractFieldFromBody(Object body, String fieldName) {

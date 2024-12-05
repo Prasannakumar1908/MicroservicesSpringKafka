@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="058a0e9e-77ee-4e5a-bfba-b9ebbb695720" name="Changes" comment="&quot;Added eureka service registry&quot;">
-      <change beforePath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/OrderService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProductService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ProductService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discoveryservice/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/discoveryservice/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discoveryservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/discoveryservice/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/DownstreamServiceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/OrderNotValidException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/QuantityZeroFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/ServerErrorException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway/src/test/java/com/prodify/apigateway/GatewayControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/Model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/Model/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/controller/GatewayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/GatewayServiceDecoratorImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/GatewayServiceDecoratorImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/UriBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/UriBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/WebClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway/src/main/java/com/prodify/apigateway/util/WebClientService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +111,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "corretto-22",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka",
+    "last_opened_file_path": "/Users/prasannakumardeep/IdeaProjects/MicroservicesSpringKafka/Microservicesdeployments",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -132,11 +141,11 @@
       <recent name="com.prodify.cqrs.OrderService.command.api.command" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Microservicesdeployments" />
       <recent name="$PROJECT_DIR$/OrderService" />
       <recent name="$PROJECT_DIR$/UserService" />
       <recent name="$PROJECT_DIR$/ShipmentService" />
       <recent name="$PROJECT_DIR$/ProductService" />
-      <recent name="$PROJECT_DIR$/PaymentService" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -153,18 +162,6 @@
         <option value="ShConfigurationType" />
         <option value="SpringBootApplicationConfigurationType" />
       </set>
-    </option>
-    <option name="hiddenConfigurations">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <set>
-              <option value="ApigatewayApplication" />
-              <option value="GatewayserviceApplication" />
-            </set>
-          </value>
-        </entry>
-      </map>
     </option>
   </component>
   <component name="RunManager" selected="Maven.discoveryservice [clean,compile,install]">
@@ -534,7 +531,9 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <list>
@@ -611,7 +610,7 @@
       <workItem from="1732517209387" duration="296000" />
       <workItem from="1732517600673" duration="255000" />
       <workItem from="1732517870013" duration="203000" />
-      <workItem from="1732625526206" duration="31921000" />
+      <workItem from="1732625526206" duration="67078000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Added eureka service registry&quot;">
       <option name="closed" value="true" />

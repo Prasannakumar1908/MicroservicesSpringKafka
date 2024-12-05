@@ -68,7 +68,6 @@ public class UriBuilder {
 
     // Static factory method to create an instance of UriBuilder
     public static UriBuilder of(ServiceName serviceName, String path) {
-        log.info(serviceName.serviceUrl + path);
         return new UriBuilder(serviceName, path);
     }
 
