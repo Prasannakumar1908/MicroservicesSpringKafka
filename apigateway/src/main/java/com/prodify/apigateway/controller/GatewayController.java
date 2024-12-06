@@ -8,6 +8,7 @@ import com.prodify.apigateway.exception.OrderNotValidException;
 import com.prodify.apigateway.util.GatewayServiceDecorator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.PageRequest;
@@ -35,24 +36,16 @@ public class GatewayController {
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Create an Order", description = "Create an order with a payload")
     @PostMapping("/order")
-    public Mono<ResponseEntity<String>> createOrder(@RequestBody OrderRestModel orderRestModel) {
+    public Mono<ResponseEntity<String>> createOrder(@RequestBody @Valid OrderRestModel orderRestModel) {
         log.info("Creating Order with details: {}", orderRestModel);
-        if (orderRestModel.getQuantity() <= 0) {
-            log.info("inside checking order quantity");
-            throw new QuantityZeroFoundException("Quantity must be greater than zero");
-        }
         return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "order", HttpMethod.POST, orderRestModel, new ParameterizedTypeReference<String>() {})
-                .map(response -> ResponseEntity.ok(response.getBody())) // Map to ResponseEntity<String>
-                .onErrorMap(e -> {
-                    log.error("Error creating order: {}", e.getMessage(), e);
-                    return new ServerErrorException("Failed to create order");
-                });
+                        "ORDER_SERVICE_URL", "order", HttpMethod.POST, orderRestModel, new ParameterizedTypeReference<String>() {});
     }
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Get Order", description = "Fetches an order by ID")
     @GetMapping("/order/{orderId}")
     public Mono<ResponseEntity<OrderRestModel>> getOrder(@PathVariable String orderId) {
+        log.info("Getting Order with ID: {}", orderId);
         return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.GET, null, new ParameterizedTypeReference<OrderRestModel>() {});
     }
 
@@ -62,32 +55,16 @@ public class GatewayController {
     @GetMapping("/orders")
     public Mono<ResponseEntity<List<OrderRestModel>>> getAllOrders() {
         log.info("Fetching All Orders");
-
-        return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "orders", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderRestModel>>() {})
-                .doOnSuccess(response -> log.info("Fetched {} orders successfully", response.getBody().size()))
-                .doOnError(e -> {
-                    log.error("Error fetching all orders: {}", e.getMessage(), e);
-                    throw new ServerErrorException("Failed to fetch all orders");
-                });
+        return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "orders", HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderRestModel>>() {});
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Update an Order", description = "Updates an existing order")
     @PutMapping("/order/{orderId}")
-    public Mono<ResponseEntity<String>> updateOrder(@PathVariable String orderId, @RequestBody OrderRestModel orderRestModel) {
+    public Mono<ResponseEntity<String>> updateOrder(@PathVariable String orderId, @RequestBody @Valid OrderRestModel orderRestModel) {
         log.info("Updating Order with ID: {} with details: {}", orderId, orderRestModel);
-        if (orderRestModel.getQuantity() <= 0) {
-            log.info("inside checking order quantity");
-            throw new QuantityZeroFoundException("Quantity must be greater than zero");
-        }
         return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.PUT, orderRestModel, new ParameterizedTypeReference<String>() {})
-                .doOnSuccess(response -> log.info("Order with ID {} updated successfully", orderId))
-                .doOnError(e -> {
-                    log.error("Error updating order with ID {}: {}", orderId, e.getMessage(), e);
-                    throw new ServerErrorException("Failed to update order with ID: " + orderId);
-                });
+                        "ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.PUT, orderRestModel, new ParameterizedTypeReference<String>() {});
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
@@ -95,14 +72,7 @@ public class GatewayController {
     @DeleteMapping("/order/{orderId}")
     public Mono<ResponseEntity<String>> deleteOrder(@PathVariable String orderId) {
         log.info("Deleting Order with ID: {}", orderId);
-
-        return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {})
-                .doOnSuccess(response -> log.info("Order with ID {} deleted successfully", orderId))
-                .doOnError(e -> {
-                    log.error("Error deleting order with ID {}: {}", orderId, e.getMessage(), e);
-                    throw new ServerErrorException("Failed to delete order with ID: " + orderId);
-                });
+        return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.DELETE, null, new ParameterizedTypeReference<String>() {});
     }
 
     @Tag(name = "Product Service", description = "Operations for managing products")
@@ -110,14 +80,7 @@ public class GatewayController {
     @PostMapping("/product")
     public Mono<ResponseEntity<String>> addProduct(@RequestBody ProductRestModel productRestModel) {
         log.info("Adding Product: {}", productRestModel);
-
-        return gatewayServiceDecorator.execute(
-                        "PRODUCT_SERVICE_URL", "product", HttpMethod.POST, productRestModel, new ParameterizedTypeReference<String>() {})
-                .doOnSuccess(response -> log.info("Product added successfully: {}", response.getBody()))
-                .doOnError(e -> {
-                    log.error("Error adding product: {}", e.getMessage(), e);
-                    throw new ServerErrorException("Failed to add product");
-                });
+        return gatewayServiceDecorator.execute("PRODUCT_SERVICE_URL", "product", HttpMethod.POST, productRestModel, new ParameterizedTypeReference<String>() {});
     }
 
     @Tag(name = "User Service", description = "Operations for managing users")
@@ -125,41 +88,22 @@ public class GatewayController {
     @GetMapping("/users/{userId}")
     public Mono<ResponseEntity<UserModel>> getUserPaymentDetails(@PathVariable String userId) {
         log.info("Fetching User Payment Details for User ID: {}", userId);
-
         return gatewayServiceDecorator.execute(
-                        "USER_SERVICE_URL", userId, HttpMethod.GET, null, new ParameterizedTypeReference<UserModel>() {})
-                .doOnSuccess(response -> log.info("User payment details fetched successfully for ID: {}", userId))
-                .doOnError(e -> {
-                    log.error("Error fetching payment details for User ID {}: {}", userId, e.getMessage(), e);
-                    throw new ServerErrorException("Failed to fetch payment details for User ID: " + userId);
-                });
+                        "USER_SERVICE_URL", userId, HttpMethod.GET, null, new ParameterizedTypeReference<UserModel>() {});
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Search Orders", description = "Search for orders based on criteria")
     @PostMapping("/search")
-    public Mono<ResponseEntity<List<OrderRestModel>>> searchOrders(
-            @RequestBody SearchRequest searchRequest,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "productId") String sortBy,
-            @RequestParam(defaultValue = "asc") String direction) {
-
+    public Mono<ResponseEntity<List<OrderRestModel>>> searchOrders(@RequestBody SearchRequest searchRequest, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "productId") String sortBy, @RequestParam(defaultValue = "asc") String direction) {
         if (searchRequest.getQuantityMin() != null && searchRequest.getQuantityMax() != null
                 && searchRequest.getQuantityMin() > searchRequest.getQuantityMax()) {
             throw new BadRequestException("Invalid quantity range: min cannot be greater than max");
         }
-
         Sort.Direction sortDirection = Sort.Direction.fromString(direction);
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, sortBy));
         log.info("Searching for orders with criteria: {}", searchRequest);
-
-        return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "search", HttpMethod.POST, searchRequest, new ParameterizedTypeReference<List<OrderRestModel>>() {})
-                .doOnSuccess(response -> log.info("Found {} orders based on search criteria", response.getBody().size()))
-                .doOnError(e -> {
-                    log.error("Error searching orders: {}", e.getMessage(), e);
-                    throw new ServerErrorException("Failed to search orders");
-                });
+        return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "search", HttpMethod.POST, searchRequest, new ParameterizedTypeReference<List<OrderRestModel>>() {});
     }
 }

@@ -283,51 +283,31 @@ public class OrderCommandController {
         this.orderKafkaProducer = orderKafkaProducer;
         this.requestIdContext = requestIdContext;
     }
-
-
     // Create Order Endpoint
     @PostMapping("/order")
     public ResponseEntity<String> createOrder(
             @Valid @RequestBody OrderRestModel orderRestModel) {
-
         String requestId = requestIdContext.getRequestId();
         String orderId = UUID.randomUUID().toString();
-
         orderRestModel.setOrderId(orderId);
         orderRestModel.setRequestId(requestId);
-
         log.debug("Received CreateOrder request with requestId: {} and details: {} using request /orders/order to orderservice", requestId, orderRestModel);
-
-
-
         if (orderRestModel.getQuantity() <= 0) {
             log.warn("Invalid quantity {} for productId {} in requestId: {}. Quantity must be greater than 0.",
                     orderRestModel.getQuantity(), orderRestModel.getProductId(), requestId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid quantity. Must be greater than 0.");
         }
-
-        CreateOrderCommand createOrderCommand = CreateOrderCommand.builder()
-                .orderId(orderId)
-                .addressId(orderRestModel.getAddressId())
-                .userId(orderRestModel.getUserId())
-                .productId(orderRestModel.getProductId())
-                .quantity(orderRestModel.getQuantity())
-                .orderStatus("CREATED")
-                .requestId(requestId)
-                .build();
-
+        CreateOrderCommand createOrderCommand = CreateOrderCommand.builder().orderId(orderId).addressId(orderRestModel.getAddressId())
+                .userId(orderRestModel.getUserId()).productId(orderRestModel.getProductId()).quantity(orderRestModel.getQuantity()).orderStatus("CREATED").requestId(requestId).build();
         try {
             log.debug("Sending CreateOrderCommand to command gateway for Order ID:{} with request Id:{}",orderId,requestId);
             commandGateway.sendAndWait(createOrderCommand);
             log.info("Successfully sent CreateOrderCommand for Order ID: {} with request ID:{}", orderId, requestId);
-
             // Publish event to Kafka
 //            String orderData = orderRestModel.toString();
             orderKafkaProducer.sendOrderEvent("order-events",orderId, orderRestModel);
             log.info("Order event successfully published to Kafka for Order ID: {} with requestID:{}", orderId, requestId);
-
             return ResponseEntity.status(HttpStatus.CREATED).body("Order Created with ID: " + orderId);
-
         } catch (CommandExecutionException e) {
             log.error("Failed to execute CreateOrderCommand for Order ID: {} with requestId:{}", orderId,requestId, e);
             return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -338,7 +318,6 @@ public class OrderCommandController {
                     .body("Unexpected error occurred. Please try again later.");
         }
     }
-
     // Update Order Endpoint
     @PutMapping("/order/{orderId}")
     public ResponseEntity<String> updateOrder(
@@ -377,7 +356,6 @@ public class OrderCommandController {
                     .body("Unexpected error occurred. Please try again later.");
         }
     }
-
     // Delete Order Endpoint
     @DeleteMapping("/order/{orderId}")
     public ResponseEntity<String> deleteOrder(
