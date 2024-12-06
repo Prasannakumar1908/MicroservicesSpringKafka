@@ -1,4 +1,4 @@
-package com.prodify.cqrs.OrderService.query.api.dto;
+package com.prodify.cqrs.OrderService.command.api.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

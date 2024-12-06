@@ -1,23 +1,14 @@
 package com.prodify.apigateway.Model;
 
+import lombok.*;
+
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserModel {
     private String userId;
     private String paymentDetails;
-
-    // Getters and Setters
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getPaymentDetails() {
-        return paymentDetails;
-    }
-
-    public void setPaymentDetails(String paymentDetails) {
-        this.paymentDetails = paymentDetails;
-    }
 }

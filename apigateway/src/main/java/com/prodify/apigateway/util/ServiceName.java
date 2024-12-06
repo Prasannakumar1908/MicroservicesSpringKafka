@@ -1,24 +1,3 @@
-//package com.prodify.apigateway.util;
-//
-//public enum ServiceName {
-//    ORDER_SERVICE("order-service/orders/", "order"),
-//    PRODUCT_SERVICE("product-service", "/products"),
-//    USER_SERVICE("user-service", "/users");
-//
-//    public final String serviceName;
-//    public final String path;
-//
-//    ServiceName(String serviceName, String path) {
-//        this.serviceName = serviceName;
-//        this.path = path;
-//    }
-//
-//    // Use service name for load balancing and base path
-//    public String getServiceUri() {
-//        return "lb://" + this.serviceName + this.path;
-//    }
-//}
-
 package com.prodify.apigateway.util;
 
 public enum ServiceName {

@@ -1,7 +1,7 @@
 package com.prodify.cqrs.OrderService.query.api.controller;
 
+import com.prodify.cqrs.OrderService.command.api.data.SearchRequest;
 import com.prodify.cqrs.OrderService.command.api.util.RequestIdContext;
-import com.prodify.cqrs.OrderService.query.api.dto.SearchRequest;  // Import SearchRequest from the correct package
 import com.prodify.cqrs.OrderService.command.api.model.OrderRestModel;
 import com.prodify.cqrs.OrderService.query.api.exception.OrderNotFoundException;
 import com.prodify.cqrs.OrderService.query.api.handler.OrderQueryHandler;

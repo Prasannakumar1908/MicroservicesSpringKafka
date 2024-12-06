@@ -38,8 +38,7 @@ public class GatewayController {
     @PostMapping("/order")
     public Mono<ResponseEntity<String>> createOrder(@RequestBody @Valid OrderRestModel orderRestModel) {
         log.info("Creating Order with details: {}", orderRestModel);
-        return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "order", HttpMethod.POST, orderRestModel, new ParameterizedTypeReference<String>() {});
+        return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "order", HttpMethod.POST, orderRestModel, new ParameterizedTypeReference<String>() {});
     }
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Get Order", description = "Fetches an order by ID")
@@ -48,7 +47,6 @@ public class GatewayController {
         log.info("Getting Order with ID: {}", orderId);
         return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.GET, null, new ParameterizedTypeReference<OrderRestModel>() {});
     }
-
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
     @Operation(summary = "Get All Orders", description = "Fetches all orders through the gateway")
@@ -63,8 +61,7 @@ public class GatewayController {
     @PutMapping("/order/{orderId}")
     public Mono<ResponseEntity<String>> updateOrder(@PathVariable String orderId, @RequestBody @Valid OrderRestModel orderRestModel) {
         log.info("Updating Order with ID: {} with details: {}", orderId, orderRestModel);
-        return gatewayServiceDecorator.execute(
-                        "ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.PUT, orderRestModel, new ParameterizedTypeReference<String>() {});
+        return gatewayServiceDecorator.execute("ORDER_SERVICE_URL", "order/" + orderId, HttpMethod.PUT, orderRestModel, new ParameterizedTypeReference<String>() {});
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")
@@ -88,8 +85,7 @@ public class GatewayController {
     @GetMapping("/users/{userId}")
     public Mono<ResponseEntity<UserModel>> getUserPaymentDetails(@PathVariable String userId) {
         log.info("Fetching User Payment Details for User ID: {}", userId);
-        return gatewayServiceDecorator.execute(
-                        "USER_SERVICE_URL", userId, HttpMethod.GET, null, new ParameterizedTypeReference<UserModel>() {});
+        return gatewayServiceDecorator.execute("USER_SERVICE_URL", userId, HttpMethod.GET, null, new ParameterizedTypeReference<UserModel>() {});
     }
 
     @Tag(name = "Order Service", description = "Operations for managing orders")

@@ -19,17 +19,14 @@ public class WebClientConfiguration {
         return WebClient.builder()
                 .filter(this::addRequestIdFilter);
     }
-
     private Mono<ClientResponse> addRequestIdFilter(ClientRequest request, ExchangeFunction next) {
         return Mono.deferContextual(ctx -> {
             // Retrieve RequestId from Reactor Context
             String requestId = ctx.getOrDefault("requestId", "Unknown-RequestId");
-
             // Add the RequestId to the outgoing request headers
             ClientRequest newRequest = ClientRequest.from(request)
                     .header("X-Request-Id", requestId)
                     .build();
-
             return next.exchange(newRequest);
         });
     }
